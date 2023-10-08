@@ -63,7 +63,7 @@ function Login_user() {
     const upload_img = () => {
         const formdata = new FormData()
         formdata.append("image", img)
-        axios.put(`http://localhost:3000/payment/${upload_id}`, formdata)
+        axios.put(`https://cloud-server-1.onrender.com/payment/${upload_id}`, formdata)
             .then((res) => {
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
@@ -84,7 +84,7 @@ function Login_user() {
     const year_en = today.getFullYear()
     const Export_certificate = async (reg_id) => {
         const certifi = async () => {
-            const certifi_get = await axios.get('http://localhost:3000/get_single_certi/' + reg_id)
+            const certifi_get = await axios.get('https://cloud-server-1.onrender.com/get_single_certi/' + reg_id)
             setSingle_certi(await certifi_get.data[0])
         }
         await certifi()
@@ -275,8 +275,8 @@ function Login_user() {
                 120, 253, { align: "center" })
 
 
-            doc.addImage(`http://localhost:3000/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
-            doc.addImage(`http://localhost:3000/images/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
+            doc.addImage(`https://cloud-server-1.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
+            doc.addImage(`https://cloud-server-1.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
 
             doc.setFont("Font")
             const fontSize25 = 16
@@ -564,7 +564,7 @@ function Login_user() {
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
 
-        axios.post("http://localhost:3000/login_user", {
+        axios.post("https://cloud-server-1.onrender.com/login_user", {
             reg_id: reg_id,
             id_card: id_card
         }).then((res) => {
@@ -676,7 +676,7 @@ function Login_user() {
                                                                                         <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
 
                                                                                         <img
-                                                                                            src={`http://localhost:3000/images/${val.profile_img}`}
+                                                                                            src={`https://cloud-server-1.onrender.com/images/${val.profile_img}`}
                                                                                             className="img-thumbnail"
                                                                                             alt="Hollywood Sign on The Hill"
                                                                                             width={100}

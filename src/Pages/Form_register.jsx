@@ -113,7 +113,7 @@ function Form_register() {
     formdata.append("branch", branch)
     formdata.append("reg_day", current_date)
     formdata.append("line_id", line_id)
-    axios.post("http://localhost:3000/add_member", formdata).then((res) => {
+    axios.post("https://cloud-server-1.onrender.com/add_member", formdata).then((res) => {
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
         setError_modal('modal')
@@ -135,7 +135,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_provinces = async () => {
-      const resprovinces = await fetch("http://localhost:3000/get_provinces")
+      const resprovinces = await fetch("https://cloud-server-1.onrender.com/get_provinces")
       const respro = await resprovinces.json();
       setShow_provinces(await respro)
     }
@@ -144,7 +144,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_amphures = async () => {
-      const resAmphures = await fetch(`http://localhost:3000/get_amphures/${province_id}`)
+      const resAmphures = await fetch(`https://cloud-server-1.onrender.com/get_amphures/${province_id}`)
       const resAmp = await resAmphures.json();
       setShow_amphures(await resAmp)
     }
@@ -154,7 +154,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_district = async () => {
-      const resDistrict = await fetch(`http://localhost:3000/get_districts/${amphure_id}`)
+      const resDistrict = await fetch(`https://cloud-server-1.onrender.com/get_districts/${amphure_id}`)
       const resDis = await resDistrict.json();
       setShow_district(await resDis)
     }
@@ -181,7 +181,7 @@ function Form_register() {
 
   useEffect(() => {
     const course_effect = async () => {
-      const get_corse = await fetch(`http://localhost:3000/course_name`)
+      const get_corse = await fetch(`https://cloud-server-1.onrender.com/course_name`)
       const res_course = await get_corse.json();
       setCourse_api(await res_course)
     }
