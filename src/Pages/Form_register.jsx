@@ -113,6 +113,9 @@ function Form_register() {
     formdata.append("branch", branch)
     formdata.append("reg_day", current_date)
     formdata.append("line_id", line_id)
+    formdata.append("kn_score", 0)
+    formdata.append("profi_score", 0)
+    formdata.append("sum_score", 0)
     axios.post("https://cloud-server-1.onrender.com/add_member", formdata).then((res) => {
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
