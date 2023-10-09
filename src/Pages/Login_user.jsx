@@ -18,7 +18,7 @@ function Login_user() {
 
 
     //reCaptcha
-    const SITE_KEY = '6LebtgYmAAAAADOb1pK-GGCL1PpR_bV-j9x5zqFJ'
+    const SITE_KEY = '6LckJokoAAAAAAt1_omKmKpnwih9h19dmrUNnhLu'
     const [captchaDone, setCaptchaDone] = useState(null)
     const onChange = () => {
         console.log('Changed')
