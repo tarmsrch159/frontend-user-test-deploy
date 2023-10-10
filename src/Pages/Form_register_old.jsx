@@ -119,13 +119,13 @@ function Form_register_old() {
 
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
-        setError_modal('modal')
+        setError_modal(false)
         setNoti_user(res.data.rows[0].reg_id)
         setNoti_id_card(res.data.id_card)
         // window.location = '/login_user'
       } else {
         setError(true)
-        setError_modal('')
+        setError_modal(true)
         alert("เกิดข้อผิดพลาด")
       }
     })
@@ -169,13 +169,16 @@ function Form_register_old() {
       || !prefix || !nationality || !birthday || !tel
       || !address || !educational || !branch || !email || !images || !line_id) {
       setDebug_data(true)
+      setError_modal(true)
       setStyle_modal("")
     } else if(images == ""){
+      setError_modal(true)
       setDebug_data(true)
       setStyle_modal("")
     }
     else {
       setDebug_data(false)
+      setError_modal(false)
       setStyle_modal("modal")
     }
   }, [id_card, name, lastname, gender, course, candidate, prefix, nationality, birthday,
@@ -185,6 +188,8 @@ function Form_register_old() {
       window.location = '/login_user'
     }
 
+    console.log(style_modal)
+    console.log(error_modal)
     
   return (
     <div className="main-panel">
