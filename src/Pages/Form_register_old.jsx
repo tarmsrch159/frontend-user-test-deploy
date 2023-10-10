@@ -188,8 +188,8 @@ function Form_register_old() {
       window.location = '/login_user'
     }
 
-    console.log(style_modal)
-    console.log(error_modal)
+    console.log('Style model' + style_modal)
+    console.log('Error modal'+error_modal)
     
   return (
     <div className="main-panel">
@@ -555,7 +555,7 @@ function Form_register_old() {
 
                   <div style={{ textAlign: 'center' }}>
 
-                    <button className="btn btn-warning py-3" type="button" data-bs-toggle={style_modal} data-bs-target="#exampleModal" onClick={add_member}>ยืนยันข้อมูล</button>
+                    <button className="btn btn-warning py-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={add_member}>ยืนยันข้อมูล</button>
                     {error_modal
                       ? (
                         <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
