@@ -528,7 +528,7 @@ function Form_register_old() {
                     </div>
                   </div>
 
-                  {/* สาขา */}
+                  {/* profile_img */}
                   <div className="form-group row">
                     <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>รูปประจำตัว <span style={{ color: "red" }}>*</span></label>
                     <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
@@ -545,6 +545,8 @@ function Form_register_old() {
                         : null}
                     </div>
                   </div>
+
+                  
 
                   <div style={{ textAlign: 'center' }}>
 

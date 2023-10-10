@@ -82,483 +82,478 @@ function Login_user() {
     const today = new Date()
     const year_thai = today.getFullYear() + 543
     const year_en = today.getFullYear()
-    const Export_certificate = async (reg_id) => {
-        const certifi = async () => {
-            const certifi_get = await axios.get('https://cloud-server-1.onrender.com/get_single_certi/' + reg_id)
-            setSingle_certi(await certifi_get.data[0])
-        }
-        await certifi()
+    const Export_certificate = (reg_id) => {
+
+        axios.get('https://cloud-server-1.onrender.com/get_single_certi/' + reg_id).then((res) => {
+            setSingle_certi(res.data[0])
+        })
     }
 
     const get_single_reg = () => {
-        const print_certi = async () => {
-            const doc = await new jsPDF()
-            const imgWidth = 35;
-            const imgHeight = 35;
-            const pageWidth = doc.internal.pageSize.getWidth()
-            const pageHeight = doc.internal.pageSize.getHeight()
-            const x = (pageWidth - imgWidth) / 2;
-            const y_position = (pageHeight - imgHeight) / 2
-            const x_text = pageWidth / 2
+        const doc = new jsPDF()
+        const imgWidth = 35;
+        const imgHeight = 35;
+        const pageWidth = doc.internal.pageSize.getWidth()
+        const pageHeight = doc.internal.pageSize.getHeight()
+        const x = (pageWidth - imgWidth) / 2;
+        const y_position = (pageHeight - imgHeight) / 2
+        const x_text = pageWidth / 2
 
-            //Add Font th-sarabun
-            doc.addFileToVFS("Font.ttf", font)
-            doc.addFont("Font.ttf", "Font", "normal")
+        //Add Font th-sarabun
+        doc.addFileToVFS("Font.ttf", font)
+        doc.addFont("Font.ttf", "Font", "normal")
 
-            doc.addFileToVFS("MyFont.ttf", fontBold)
-            doc.addFont("MyFont.ttf", "MyFont", "normal")
-
+        doc.addFileToVFS("MyFont.ttf", fontBold)
+        doc.addFont("MyFont.ttf", "MyFont", "normal")
 
 
-            //Page1
-            doc.addImage(logo_certi, 'png', x, 15, imgWidth, imgHeight)
-            doc.setFont("MyFont")
-            const fontSize1 = 20
-            doc.setFontSize(fontSize1)
-            doc.text('หนังสือรับรองว่าเป็นผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงานแห่งชาติ', x_text, 58, { align: "center" })
 
-            doc.setFont("Font")
-            const fontSize2 = 18
-            doc.setFontSize(fontSize2)
-            doc.text('National Skill Standard Assessment Certificate', x_text, 65, { align: "center" })
+        //Page1
+        doc.addImage(logo_certi, 'png', x, 15, imgWidth, imgHeight)
+        doc.setFont("MyFont")
+        const fontSize1 = 20
+        doc.setFontSize(fontSize1)
+        doc.text('หนังสือรับรองว่าเป็นผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงานแห่งชาติ', x_text, 58, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize2 = 18
+        doc.setFontSize(fontSize2)
+        doc.text('National Skill Standard Assessment Certificate', x_text, 65, { align: "center" })
 
 
-            const x_1 = 82;
-            let y_1 = 75;
-            const text = [
-                { content: 'เลขที่ ', fontSize: 16, Font: 'MyFont' },
-                { content: `(No.) บท.สพ ${single_certi.book_id}/${year_thai} `, fontSize: 16, Font: 'Font' },
-            ];
-            // Initialize the current X position
-            let currentX = x_1;
-            for (const segment of text) {
-                const { content, fontSize, Font } = segment;
-                if (Font) {
-                    doc.setFont(Font);
-                }
-                // Set the font size for this segment
-                if (fontSize) {
-                    doc.setFontSize(fontSize);
-                }
-                const textWidth = doc.getTextWidth(content);
-                // Add the segment to the PDF
-                doc.text(content, currentX, y_1);
-                currentX += textWidth
-
+        const x_1 = 82;
+        let y_1 = 75;
+        const text = [
+            { content: 'เลขที่ ', fontSize: 16, Font: 'MyFont' },
+            { content: `(No.) บท.สพ ${single_certi.book_id}/${year_thai} `, fontSize: 16, Font: 'Font' },
+        ];
+        // Initialize the current X position
+        let currentX = x_1;
+        for (const segment of text) {
+            const { content, fontSize, Font } = segment;
+            if (Font) {
+                doc.setFont(Font);
             }
-
-
-            doc.setFont("MyFont")
-            const fontSize3 = 16
-            doc.setFontSize(fontSize3)
-            doc.text('หนังสือรับรองฉบับนี้ให้ไว้เพื่อแสดงว่า', x_text, 82, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize4 = 16
-            doc.setFontSize(fontSize4)
-            doc.text('This is to certify that', x_text, 87, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize5 = 20
-            doc.setFontSize(fontSize5)
-            doc.text(`${single_certi.prefix} ${single_certi.name} ${single_certi.lastname}`, x_text, 97, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize6 = 16
-            doc.setFontSize(fontSize6)
-            doc.text(`${single_certi.name_en} ${single_certi.lastname_en}`, x_text, 104, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize7 = 16
-            doc.setFontSize(fontSize7)
-            doc.text(`ได้ผ่านการทดสอบมาตรฐานฝีมือแรงงานแห่งชาติ`, x_text, 115, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize8 = 16
-            doc.setFontSize(fontSize8)
-            doc.text(`has passed the National Skill Standard Test`, x_text, 120, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize9 = 16
-            doc.setFontSize(fontSize9)
-            doc.text(`ตามพระราชบัญญัติส่งเสริมการพัฒนาฝีมือแรงงาน พ.ศ. 2545`, x_text, 128, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize10 = 16
-            doc.setFontSize(fontSize10)
-            doc.text(`according to the Skill Development Promotion Act, B.E. 2545`, x_text, 133, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize11 = 16
-            doc.setFontSize(fontSize11)
-            doc.text(`ในสาขาอาชีพ ${single_certi.branch} ${single_certi.course_name_th}`, 15, 140, { align: "left" })
-
-            doc.setFont("Font")
-            const fontSize12 = 16
-            doc.setFontSize(fontSize12)
-            doc.text(`On Electric, ${single_certi.course_name_en}`, 15, 146, { align: "left" })
-
-            doc.setFont("MyFont")
-            const fontSize13 = 16
-            doc.setFontSize(fontSize13)
-            doc.text(`จากศูนย์ทดสอบมาตรฐานฝีมือแรงงาน โดย คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ ศูนย์สุพรรณบุรี`, 15, 153, { align: "left" })
-
-            doc.setFont("Font")
-            const fontSize14 = 16
-            doc.setFontSize(fontSize14)
-            doc.text(`from Department of Skill Development by Faculty of Business Administration and Information `, 15, 159, { align: "left" })
-
-            doc.setFont("Font")
-            doc.setFontSize(fontSize14)
-            doc.text(`Technology, RMUTSB Skill Standard Testing Center `, 15, 165, { align: "left" })
-
-            doc.setFont("MyFont")
-            const fontSize15 = 16
-            doc.setFontSize(fontSize15)
-            doc.text([`ซึ่งได้รับอนุญาตจากอธิบดีกรมพัฒนาฝีมือแรงงาน กระทรวงแรงงาน ในฐานะนายทะเบียน`],
-                15, 172, { align: "left" })
-
-            doc.setFont("Font")
-            const fontSize16 = 16
-            doc.setFontSize(fontSize16)
-            doc.text(`authorized by Director General of the Department of Skill Development, Ministry of labour, as a registrar`,
-                15, 178, { align: "left" })
-
-            doc.setFont("MyFont")
-            const fontSize17 = 16
-            doc.setFontSize(fontSize17)
-            doc.text(`ตามใบอนุญาตเลขที่       สพ.๐๐๐๑.๑/๒๕๖๖   ลงวันที่   31 มกราคม พ.ศ. ${year_thai}`,
-                15, 184, { align: "left" })
-
-            doc.setFont("Font")
-            const fontSize18 = 16
-            doc.setFontSize(fontSize18)
-            doc.text(`under license number  สพ.0001.1/2566      dated    31 January B.E. ${year_thai} (${year_en})`,
-                15, 190, { align: "left" })
-
-            doc.setFont("MyFont")
-            const fontSize19 = 16
-            doc.setFontSize(fontSize19)
-            doc.text(`ให้ไว้ ณ วันที่   9 มีนาคม พ.ศ. 2566`,
-                x_text, 198, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize20 = 16
-            doc.setFontSize(fontSize20)
-            doc.text(`given on   9 March B.E.2566 (${year_en})`,
-                x_text, 204, { align: "center" })
-
-            doc.addImage(taweesak_signature, 'png', 110, 215, 20, 15)
-
-            doc.setFont("MyFont")
-            const fontSize21 = 16
-            doc.setFontSize(fontSize21)
-            doc.text(`(นายทวีศักดิ์  คงตุก)`,
-                120, 235, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize22 = 16
-            doc.setFontSize(fontSize22)
-            doc.text(`Thaweesak khongtuk`,
-                120, 241, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize23 = 16
-            doc.setFontSize(fontSize23)
-            doc.text(`ผู้ดำเนินการทดสอบมาตรฐานฝีมือแรงงาน`,
-                120, 247.5, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize24 = 16
-            doc.setFontSize(fontSize24)
-            doc.text(`Skill Standard Testing Provider`,
-                120, 253, { align: "center" })
-
-
-            doc.addImage(`https://cloud-server-1.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
-            doc.addImage(`https://cloud-server-1.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
-
-            doc.setFont("Font")
-            const fontSize25 = 16
-            doc.setFontSize(fontSize25)
-            doc.text(`...........................................`,
-                53, 265, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize26 = 16
-            doc.setFontSize(fontSize26)
-            doc.text(`ผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงาน`,
-                53, 270, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize27 = 16
-            doc.setFontSize(fontSize27)
-            doc.text(`Examiner`,
-                53, 275, { align: "center" })
-
-
-
-
-            //Page2
-            doc.addPage()
-            doc.setFont("MyFont")
-            const fontSize28 = 16
-            doc.setFontSize(fontSize28)
-            doc.text(`คะแนนการทดสอบ`, 50, 20, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize29 = 16
-            doc.setFontSize(fontSize29)
-            doc.text(`(Total Score)`, 50, 26, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize30 = 16
-            doc.setFontSize(fontSize30)
-            doc.text(`${single_certi.sum_score}%`, 50, 37, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize31 = 16
-            doc.setFontSize(fontSize31)
-            doc.text(`.................................`, 50, 38, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize32 = 16
-            doc.setFontSize(fontSize32)
-            doc.text('ภาคความรู้', x_text, 20, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize33 = 16
-            doc.setFontSize(fontSize33)
-            doc.text('(Theoretical)', x_text, 26, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize34 = 16
-            doc.setFontSize(fontSize34)
-            doc.text(`${single_certi.kn_score}%`, x_text, 37, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize35 = 16
-            doc.setFontSize(fontSize35)
-            doc.text('.................................', x_text, 38, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize36 = 16
-            doc.setFontSize(fontSize36)
-            doc.text('ภาคความสามารถ', 155, 20, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize37 = 16
-            doc.setFontSize(fontSize37)
-            doc.text('(Practical)', 155, 26, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize38 = 16
-            doc.setFontSize(fontSize38)
-            doc.text(`${single_certi.profi_score}%`, 155, 37, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize39 = 16
-            doc.setFontSize(fontSize39)
-            doc.text('.................................', 155, 38, { align: "center" })
-
-            doc.setFont("MyFont")
-            const fontSize40 = 16
-            doc.setFontSize(fontSize40)
-            doc.text(`ชื่อผู้ทดสอบมาตรฐานฝีมือแรงงาน`, 50, 60, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize41 = 16
-            doc.setFontSize(fontSize41)
-            doc.text(`(Examiner)`, 50, 67, { align: "center" })
-
-
-
-            //เลขที่ขึ้นทะเบียน
-            doc.setFont("MyFont")
-            const fontSize42 = 16
-            doc.setFontSize(fontSize42)
-            doc.text(`เลขที่ขึ้นทะเบียน`, 131, 60, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize43 = 16
-            doc.setFontSize(fontSize43)
-            doc.text(`(Examiner No.)`, 131, 67, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`มฝร-1-4-22-008-0012-59`, 132, 80, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`.................................................`, 131, 80.8, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`มฝร-1-4-22-008-0013-59`, 132, 95, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`.................................................`, 131, 95.8, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`มฝร-1-4-22-008-0014-59`, 132, 110, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`.................................................`, 131, 110.8, { align: "center" })
-
-
-            //ลง Signature
-            doc.setFont("MyFont")
-            const fontSize44 = 16
-            doc.setFontSize(fontSize44)
-            doc.text(`ลงชื่อ`, 175, 60, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize45 = 16
-            doc.setFontSize(fontSize45)
-            doc.text(`(Signature)`, 175, 67, { align: "center" })
-
-            doc.addImage(wutthiphong_signature, 170, 72, 10, 10)
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`...............`, 175, 80.8, { align: "center" })
-
-            doc.addImage(Sattarpoom_signature, 170, 87, 10, 10)
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`...............`, 175, 95.8, { align: "center" })
-
-            doc.addImage(Baramee_signature, 166, 102, 20, 10)
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`...............`, 175, 110.8, { align: "center" })
-
-
-            const x_2 = 25;
-            let y_2 = 80;
-            const text_1 = [
-                { content: '1.      ', fontSize: 16, Font: 'Font' },
-                { content: `นายวุฒิพงษ์  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
-
-            ];
-            // Initialize the current X position
-            let currentX_2 = x_2;
-            for (const segment of text_1) {
-                const { content, fontSize, Font } = segment;
-                if (Font) {
-                    doc.setFont(Font);
-                }
-                // Set the font size for this segment
-                if (fontSize) {
-                    doc.setFontSize(fontSize);
-                }
-                const textWidth = doc.getTextWidth(content);
-                // Add the segment to the PDF
-                doc.text(content, currentX_2, y_2,);
-                currentX_2 += textWidth
+            // Set the font size for this segment
+            if (fontSize) {
+                doc.setFontSize(fontSize);
             }
-
-            doc.setFont("Font")
-            const fontSize46 = 16
-            doc.setFontSize(fontSize46)
-            doc.text(`..........................................................................`, 64, 80.8, { align: "center" })
-
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`Mr. Wutthiphong Khuandin`, 58, 88, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize47 = 16
-            doc.setFontSize(fontSize47)
-            doc.text(`..........................................................................`, 64, 88.8, { align: "center" })
-
-            const x_3 = 25;
-            let y_3 = 95;
-            const text_2 = [
-                { content: '2.      ', fontSize: 16, Font: 'Font' },
-                { content: `นายสัตถาภูมิ  ไทยพานิช`, fontSize: 16, Font: 'Font' },
-
-            ];
-            // Initialize the current X position
-            let currentX_3 = x_3;
-            for (const segment of text_2) {
-                const { content, fontSize, Font } = segment;
-                if (Font) {
-                    doc.setFont(Font);
-                }
-                // Set the font size for this segment
-                if (fontSize) {
-                    doc.setFontSize(fontSize);
-                }
-                const textWidth = doc.getTextWidth(content);
-                // Add the segment to the PDF
-                doc.text(content, currentX_3, y_3,);
-                currentX_3 += textWidth
-            }
-
-            doc.setFont("Font")
-            const fontSize48 = 16
-            doc.setFontSize(fontSize48)
-            doc.text(`..........................................................................`, 64, 95.8, { align: "center" })
-
-            doc.setFont("Font")
-            doc.setFontSize(16)
-            doc.text(`Mr.Sattarpoom Thaiparnit`, 57, 103, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize49 = 16
-            doc.setFontSize(fontSize49)
-            doc.text(`..........................................................................`, 64, 103.8, { align: "center" })
-
-            const x_4 = 25;
-            let y_4 = 110;
-            const text_3 = [
-                { content: '3.      ', fontSize: 16, Font: 'Font' },
-                { content: `นายบารมี  โอสธีรกุล  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
-
-            ];
-            // Initialize the current X position
-            let currentX_4 = x_4;
-            for (const segment of text_3) {
-                const { content, fontSize, Font } = segment;
-                if (Font) {
-                    doc.setFont(Font);
-                }
-                // Set the font size for this segment
-                if (fontSize) {
-                    doc.setFontSize(fontSize);
-                }
-                const textWidth = doc.getTextWidth(content);
-                // Add the segment to the PDF
-                doc.text(content, currentX_4, y_4,);
-                currentX_4 += textWidth
-            }
-
-            doc.setFont("Font")
-            const fontSize50 = 16
-            doc.setFontSize(fontSize50)
-            doc.text(`..........................................................................`, 64, 110.8, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize51 = 16
-            doc.setFontSize(fontSize51)
-            doc.text(`Mr.Baramee  Osateerakul`, 57, 118, { align: "center" })
-
-            doc.setFont("Font")
-            const fontSize52 = 16
-            doc.setFontSize(fontSize52)
-            doc.text(`..........................................................................`, 64, 118.8, { align: "center" })
-
-            doc.save(await "ข้อมูลเกียรติบัตรผู้ที่ผ่านการสอบ.pdf")
+            const textWidth = doc.getTextWidth(content);
+            // Add the segment to the PDF
+            doc.text(content, currentX, y_1);
+            currentX += textWidth
 
         }
-        print_certi()
+
+
+        doc.setFont("MyFont")
+        const fontSize3 = 16
+        doc.setFontSize(fontSize3)
+        doc.text('หนังสือรับรองฉบับนี้ให้ไว้เพื่อแสดงว่า', x_text, 82, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize4 = 16
+        doc.setFontSize(fontSize4)
+        doc.text('This is to certify that', x_text, 87, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize5 = 20
+        doc.setFontSize(fontSize5)
+        doc.text(`${single_certi.prefix} ${single_certi.name} ${single_certi.lastname}`, x_text, 97, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize6 = 16
+        doc.setFontSize(fontSize6)
+        doc.text(`${single_certi.name_en} ${single_certi.lastname_en}`, x_text, 104, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize7 = 16
+        doc.setFontSize(fontSize7)
+        doc.text(`ได้ผ่านการทดสอบมาตรฐานฝีมือแรงงานแห่งชาติ`, x_text, 115, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize8 = 16
+        doc.setFontSize(fontSize8)
+        doc.text(`has passed the National Skill Standard Test`, x_text, 120, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize9 = 16
+        doc.setFontSize(fontSize9)
+        doc.text(`ตามพระราชบัญญัติส่งเสริมการพัฒนาฝีมือแรงงาน พ.ศ. 2545`, x_text, 128, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize10 = 16
+        doc.setFontSize(fontSize10)
+        doc.text(`according to the Skill Development Promotion Act, B.E. 2545`, x_text, 133, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize11 = 16
+        doc.setFontSize(fontSize11)
+        doc.text(`ในสาขาอาชีพ ${single_certi.branch} ${single_certi.course_name_th}`, 15, 140, { align: "left" })
+
+        doc.setFont("Font")
+        const fontSize12 = 16
+        doc.setFontSize(fontSize12)
+        doc.text(`On Electric, ${single_certi.course_name_en}`, 15, 146, { align: "left" })
+
+        doc.setFont("MyFont")
+        const fontSize13 = 16
+        doc.setFontSize(fontSize13)
+        doc.text(`จากศูนย์ทดสอบมาตรฐานฝีมือแรงงาน โดย คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ ศูนย์สุพรรณบุรี`, 15, 153, { align: "left" })
+
+        doc.setFont("Font")
+        const fontSize14 = 16
+        doc.setFontSize(fontSize14)
+        doc.text(`from Department of Skill Development by Faculty of Business Administration and Information `, 15, 159, { align: "left" })
+
+        doc.setFont("Font")
+        doc.setFontSize(fontSize14)
+        doc.text(`Technology, RMUTSB Skill Standard Testing Center `, 15, 165, { align: "left" })
+
+        doc.setFont("MyFont")
+        const fontSize15 = 16
+        doc.setFontSize(fontSize15)
+        doc.text([`ซึ่งได้รับอนุญาตจากอธิบดีกรมพัฒนาฝีมือแรงงาน กระทรวงแรงงาน ในฐานะนายทะเบียน`],
+            15, 172, { align: "left" })
+
+        doc.setFont("Font")
+        const fontSize16 = 16
+        doc.setFontSize(fontSize16)
+        doc.text(`authorized by Director General of the Department of Skill Development, Ministry of labour, as a registrar`,
+            15, 178, { align: "left" })
+
+        doc.setFont("MyFont")
+        const fontSize17 = 16
+        doc.setFontSize(fontSize17)
+        doc.text(`ตามใบอนุญาตเลขที่       สพ.๐๐๐๑.๑/๒๕๖๖   ลงวันที่   31 มกราคม พ.ศ. ${year_thai}`,
+            15, 184, { align: "left" })
+
+        doc.setFont("Font")
+        const fontSize18 = 16
+        doc.setFontSize(fontSize18)
+        doc.text(`under license number  สพ.0001.1/2566      dated    31 January B.E. ${year_thai} (${year_en})`,
+            15, 190, { align: "left" })
+
+        doc.setFont("MyFont")
+        const fontSize19 = 16
+        doc.setFontSize(fontSize19)
+        doc.text(`ให้ไว้ ณ วันที่   9 มีนาคม พ.ศ. 2566`,
+            x_text, 198, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize20 = 16
+        doc.setFontSize(fontSize20)
+        doc.text(`given on   9 March B.E.2566 (${year_en})`,
+            x_text, 204, { align: "center" })
+
+        doc.addImage(taweesak_signature, 'png', 110, 215, 20, 15)
+
+        doc.setFont("MyFont")
+        const fontSize21 = 16
+        doc.setFontSize(fontSize21)
+        doc.text(`(นายทวีศักดิ์  คงตุก)`,
+            120, 235, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize22 = 16
+        doc.setFontSize(fontSize22)
+        doc.text(`Thaweesak khongtuk`,
+            120, 241, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize23 = 16
+        doc.setFontSize(fontSize23)
+        doc.text(`ผู้ดำเนินการทดสอบมาตรฐานฝีมือแรงงาน`,
+            120, 247.5, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize24 = 16
+        doc.setFontSize(fontSize24)
+        doc.text(`Skill Standard Testing Provider`,
+            120, 253, { align: "center" })
+
+
+        doc.addImage(`https://cloud-server-1.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
+        doc.addImage(`https://cloud-server-1.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
+
+        doc.setFont("Font")
+        const fontSize25 = 16
+        doc.setFontSize(fontSize25)
+        doc.text(`...........................................`,
+            53, 265, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize26 = 16
+        doc.setFontSize(fontSize26)
+        doc.text(`ผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงาน`,
+            53, 270, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize27 = 16
+        doc.setFontSize(fontSize27)
+        doc.text(`Examiner`,
+            53, 275, { align: "center" })
+
+
+
+
+        //Page2
+        doc.addPage()
+        doc.setFont("MyFont")
+        const fontSize28 = 16
+        doc.setFontSize(fontSize28)
+        doc.text(`คะแนนการทดสอบ`, 50, 20, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize29 = 16
+        doc.setFontSize(fontSize29)
+        doc.text(`(Total Score)`, 50, 26, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize30 = 16
+        doc.setFontSize(fontSize30)
+        doc.text(`${single_certi.sum_score}%`, 50, 37, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize31 = 16
+        doc.setFontSize(fontSize31)
+        doc.text(`.................................`, 50, 38, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize32 = 16
+        doc.setFontSize(fontSize32)
+        doc.text('ภาคความรู้', x_text, 20, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize33 = 16
+        doc.setFontSize(fontSize33)
+        doc.text('(Theoretical)', x_text, 26, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize34 = 16
+        doc.setFontSize(fontSize34)
+        doc.text(`${single_certi.kn_score}%`, x_text, 37, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize35 = 16
+        doc.setFontSize(fontSize35)
+        doc.text('.................................', x_text, 38, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize36 = 16
+        doc.setFontSize(fontSize36)
+        doc.text('ภาคความสามารถ', 155, 20, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize37 = 16
+        doc.setFontSize(fontSize37)
+        doc.text('(Practical)', 155, 26, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize38 = 16
+        doc.setFontSize(fontSize38)
+        doc.text(`${single_certi.profi_score}%`, 155, 37, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize39 = 16
+        doc.setFontSize(fontSize39)
+        doc.text('.................................', 155, 38, { align: "center" })
+
+        doc.setFont("MyFont")
+        const fontSize40 = 16
+        doc.setFontSize(fontSize40)
+        doc.text(`ชื่อผู้ทดสอบมาตรฐานฝีมือแรงงาน`, 50, 60, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize41 = 16
+        doc.setFontSize(fontSize41)
+        doc.text(`(Examiner)`, 50, 67, { align: "center" })
+
+
+
+        //เลขที่ขึ้นทะเบียน
+        doc.setFont("MyFont")
+        const fontSize42 = 16
+        doc.setFontSize(fontSize42)
+        doc.text(`เลขที่ขึ้นทะเบียน`, 131, 60, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize43 = 16
+        doc.setFontSize(fontSize43)
+        doc.text(`(Examiner No.)`, 131, 67, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`มฝร-1-4-22-008-0012-59`, 132, 80, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`.................................................`, 131, 80.8, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`มฝร-1-4-22-008-0013-59`, 132, 95, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`.................................................`, 131, 95.8, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`มฝร-1-4-22-008-0014-59`, 132, 110, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`.................................................`, 131, 110.8, { align: "center" })
+
+
+        //ลง Signature
+        doc.setFont("MyFont")
+        const fontSize44 = 16
+        doc.setFontSize(fontSize44)
+        doc.text(`ลงชื่อ`, 175, 60, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize45 = 16
+        doc.setFontSize(fontSize45)
+        doc.text(`(Signature)`, 175, 67, { align: "center" })
+
+        doc.addImage(wutthiphong_signature, 170, 72, 10, 10)
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`...............`, 175, 80.8, { align: "center" })
+
+        doc.addImage(Sattarpoom_signature, 170, 87, 10, 10)
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`...............`, 175, 95.8, { align: "center" })
+
+        doc.addImage(Baramee_signature, 166, 102, 20, 10)
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`...............`, 175, 110.8, { align: "center" })
+
+
+        const x_2 = 25;
+        let y_2 = 80;
+        const text_1 = [
+            { content: '1.      ', fontSize: 16, Font: 'Font' },
+            { content: `นายวุฒิพงษ์  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+
+        ];
+        // Initialize the current X position
+        let currentX_2 = x_2;
+        for (const segment of text_1) {
+            const { content, fontSize, Font } = segment;
+            if (Font) {
+                doc.setFont(Font);
+            }
+            // Set the font size for this segment
+            if (fontSize) {
+                doc.setFontSize(fontSize);
+            }
+            const textWidth = doc.getTextWidth(content);
+            // Add the segment to the PDF
+            doc.text(content, currentX_2, y_2,);
+            currentX_2 += textWidth
+        }
+
+        doc.setFont("Font")
+        const fontSize46 = 16
+        doc.setFontSize(fontSize46)
+        doc.text(`..........................................................................`, 64, 80.8, { align: "center" })
+
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`Mr. Wutthiphong Khuandin`, 58, 88, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize47 = 16
+        doc.setFontSize(fontSize47)
+        doc.text(`..........................................................................`, 64, 88.8, { align: "center" })
+
+        const x_3 = 25;
+        let y_3 = 95;
+        const text_2 = [
+            { content: '2.      ', fontSize: 16, Font: 'Font' },
+            { content: `นายสัตถาภูมิ  ไทยพานิช`, fontSize: 16, Font: 'Font' },
+
+        ];
+        // Initialize the current X position
+        let currentX_3 = x_3;
+        for (const segment of text_2) {
+            const { content, fontSize, Font } = segment;
+            if (Font) {
+                doc.setFont(Font);
+            }
+            // Set the font size for this segment
+            if (fontSize) {
+                doc.setFontSize(fontSize);
+            }
+            const textWidth = doc.getTextWidth(content);
+            // Add the segment to the PDF
+            doc.text(content, currentX_3, y_3,);
+            currentX_3 += textWidth
+        }
+
+        doc.setFont("Font")
+        const fontSize48 = 16
+        doc.setFontSize(fontSize48)
+        doc.text(`..........................................................................`, 64, 95.8, { align: "center" })
+
+        doc.setFont("Font")
+        doc.setFontSize(16)
+        doc.text(`Mr.Sattarpoom Thaiparnit`, 57, 103, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize49 = 16
+        doc.setFontSize(fontSize49)
+        doc.text(`..........................................................................`, 64, 103.8, { align: "center" })
+
+        const x_4 = 25;
+        let y_4 = 110;
+        const text_3 = [
+            { content: '3.      ', fontSize: 16, Font: 'Font' },
+            { content: `นายบารมี  โอสธีรกุล  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+
+        ];
+        // Initialize the current X position
+        let currentX_4 = x_4;
+        for (const segment of text_3) {
+            const { content, fontSize, Font } = segment;
+            if (Font) {
+                doc.setFont(Font);
+            }
+            // Set the font size for this segment
+            if (fontSize) {
+                doc.setFontSize(fontSize);
+            }
+            const textWidth = doc.getTextWidth(content);
+            // Add the segment to the PDF
+            doc.text(content, currentX_4, y_4,);
+            currentX_4 += textWidth
+        }
+
+        doc.setFont("Font")
+        const fontSize50 = 16
+        doc.setFontSize(fontSize50)
+        doc.text(`..........................................................................`, 64, 110.8, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize51 = 16
+        doc.setFontSize(fontSize51)
+        doc.text(`Mr.Baramee  Osateerakul`, 57, 118, { align: "center" })
+
+        doc.setFont("Font")
+        const fontSize52 = 16
+        doc.setFontSize(fontSize52)
+        doc.text(`..........................................................................`, 64, 118.8, { align: "center" })
+
+        doc.save("ข้อมูลเกียรติบัตรผู้ที่ผ่านการสอบ.pdf")
     }
 
     //Task for a function----------------------------------------------------------------------------------------
@@ -593,7 +588,6 @@ function Login_user() {
         window.location = `/payment/${reg_id}`
     }
 
-    console.log(user_data)
 
     return (
         <div className="main-panel">
