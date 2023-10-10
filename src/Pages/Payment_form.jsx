@@ -112,22 +112,22 @@ function Payment_form() {
                                                                 <hr />
 
                                                                 <form className="forms-sample">
-                                                                    <h3>ชำระเงิน: </h3>
-                                                                    <div className="row justify-content-center">
-                                                                        <div className="col-4">
-                                                                            <h4 className='mt-4'>เลขที่บัญชี: <span>123456</span></h4>
+                                                                    <div className="auth-form-light text-left py-5 px-4 px-sm-5">
+                                                                        <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ชำระเงิน</h3>
+
+
+                                                                        <div className="mb-3 mt-5" style={{ display: 'flex' }}>
+                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เลขที่บัญชี:</h5>
+                                                                            <span className='fs-6'>123456</span>
                                                                         </div>
-                                                                        <div className="col-4">
-                                                                            <h4 className='mt-4'>แนบหลักฐานการชำระเงิน: </h4>
+                                                                        <div className="" style={{ display: 'flex' }}>
+                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>แนบหลักฐานการชำระเงิน:</h5>
                                                                             <input type="file" onChange={handleImg} className="form-control py-2" id="customFile" />
                                                                         </div>
+                                                                        <button type="button" onClick={paid} className="btn btn-success px-5 py-3 fs-6 mt-5">ชำระเงิน</button>
 
-                                                                        <div className="col-4">
-                                                                        </div>
                                                                     </div>
 
-
-                                                                    <button type="button" onClick={paid} className="btn btn-success px-5 py-3 fs-6 mt-5">ชำระเงิน</button>
                                                                 </form>
                                                             </>
                                                         )
