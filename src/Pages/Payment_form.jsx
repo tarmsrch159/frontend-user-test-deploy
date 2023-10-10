@@ -71,24 +71,43 @@ function Payment_form() {
                                                             <>
                                                                 <h3>สถานะ: <span><a className='btn-warning' style={{ textDecoration: "none", padding: "5px", borderRadius: "5px" }}> {info.permission} </a></span></h3>
                                                                 <hr />
-                                                                <h3>ข้อมูลผู้สมัครสอบ: </h3>
-                                                                <div className="row justify-content-center mt-4">
-                                                                    <div className="col-6">
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>หลักสูตร(ฝึกอบรม): <span style={{ fontWeight: "normal" }}>{info.name_th}</span></h5>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", marginTop: "20px" }}>ชื่อ-นามสกุล: <span style={{ fontWeight: "normal" }}>{info.name} {info.lastname}</span></h5>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", marginTop: "20px" }}>ที่อยู่ตามทะเบียนบ้าน: <span style={{ fontWeight: "normal" }}>{info.name} {info.lastname}</span></h5>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", marginTop: "20px" }}>วุฒิการศึกษาสูงสุด: <span style={{ fontWeight: "normal" }}>{info.educational}</span></h5>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", marginTop: "20px" }}>สาขา: <span style={{ fontWeight: "normal" }}>{info.branch}</span></h5>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", marginTop: "20px" }}>สัญชาติ: <span style={{ fontWeight: "normal" }}>{info.nationality}</span></h5>
+                                                                <div className="auth-form-light text-left py-5 px-4 px-sm-5">
+                                                                    <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ข้อมูลผู้สมัครสอบ</h3>
 
+                                                                    <div className="row">
+                                                                        <div className="col-4">
+
+                                                                        </div>
+                                                                        <div className="col-8 my-3" style={{ display: 'flex', justifyContent: 'end' }}>
+                                                                            <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
+                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
+
+                                                                                <img
+                                                                                    src={`https://server-2-s3v5.onrender.com/images/${info.profile_img}`}
+                                                                                    className="img-thumbnail"
+                                                                                    alt=""
+                                                                                    width={100}
+                                                                                    height={100}
+                                                                                />
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
-                                                                    <div className="col-6" style={{ textAlign: 'center' }}>
-                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว
-                                                                        </h5>
-                                                                        <img src={`https://server-2-s3v5.onrender.com/images/${info.profile_img}`} class="img-thumbnail mx-5" alt="" width={150} height={100} />
+
+                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>หลักสูตร(ฝึกอบรม):</h5>
+                                                                        <span className='fs-6'>{info.name_th}</span>
                                                                     </div>
-                                                                    
+                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ชื่อ-นามสกุล:</h5>
+                                                                        <span className='fs-6'>{info.name} {info.lastname}</span>
+                                                                    </div>
+                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>สาขา:</h5>
+                                                                        <span className='fs-6'>{info.branch}</span>
+                                                                    </div>
                                                                 </div>
+
+
 
                                                                 <hr />
 

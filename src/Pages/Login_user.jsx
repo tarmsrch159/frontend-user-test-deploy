@@ -19,6 +19,7 @@ function Login_user() {
 
     //reCaptcha
     const SITE_KEY = '6LckJokoAAAAAAt1_omKmKpnwih9h19dmrUNnhLu'
+    const SITE_KEY_2 = '6LebtgYmAAAAADOb1pK-GGCL1PpR_bV-j9x5zqFJ'
     const [captchaDone, setCaptchaDone] = useState(null)
     const onChange = () => {
         console.log('Changed')
@@ -635,7 +636,7 @@ function Login_user() {
                                                     {/* recaptcha */}
                                                     <div class="mb-5 mt-5" style={{ display: 'flex', justifyContent: "center" }}>
                                                         < ReCAPTCHA
-                                                            sitekey={SITE_KEY}
+                                                            sitekey={SITE_KEY_2}
                                                             onChange={onChange}
                                                         />
                                                     </div>
@@ -672,7 +673,7 @@ function Login_user() {
                                                                                         <img
                                                                                             src={`https://server-2-s3v5.onrender.com/images/${val.profile_img}`}
                                                                                             className="img-thumbnail"
-                                                                                            alt="Hollywood Sign on The Hill"
+                                                                                            alt=""
                                                                                             width={100}
                                                                                             height={100}
                                                                                         />

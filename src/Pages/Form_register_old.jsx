@@ -610,10 +610,6 @@ function Form_register_old() {
                           </div>
                         </div>
                       </div>
-
-
-
-                      <button className="btn btn-light px-4 py-3">Cancel</button>
                     </div>
 
                   </form>
