@@ -56,7 +56,7 @@ function Form_register_old() {
   const navigate = useNavigate()
   const [debug_data, setDebug_data] = useState(null)
   const [error, setError] = useState('')
-  const [error_modal, setError_modal] = useState(null)
+  const [error_modal, setError_modal] = useState(true)
   const [style_modal, setStyle_modal] = useState("")
   const [provinces, setProvinces] = useState([])
   const [amphure, setAmphure] = useState([])
