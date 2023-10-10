@@ -63,7 +63,7 @@ function Login_user() {
     const upload_img = () => {
         const formdata = new FormData()
         formdata.append("image", img)
-        axios.put(`https://cloud-server-1.onrender.com/payment/${upload_id}`, formdata)
+        axios.put(`https://server-2-s3v5.onrender.com/payment/${upload_id}`, formdata)
             .then((res) => {
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
@@ -559,7 +559,7 @@ function Login_user() {
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
 
-        axios.post("https://cloud-server-1.onrender.com/login_user", {
+        axios.post("https://server-2-s3v5.onrender.com/login_user", {
             reg_id: reg_id,
             id_card: id_card
         }).then((res) => {
