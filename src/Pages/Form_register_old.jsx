@@ -557,8 +557,7 @@ function Form_register_old() {
                   <div style={{ textAlign: 'center' }}>
 
                     <button className="btn btn-warning py-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={add_member}>ยืนยันข้อมูล</button>
-                    {error_modal
-                      ? (
+                    
                         <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                           <div className="modal-dialog" role="document">
                             <div className="modal-content">
@@ -582,33 +581,7 @@ function Form_register_old() {
                             </div>
                           </div>
                         </div>
-                      )
-                      : (
-                        <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                          <div className="modal-dialog" role="document">
-                            <div className="modal-content">
-                              <div className="modal-header">
-                                <h5 className="modal-title" id="exampleModalLabel">แจ้งเตือน</h5>
-                                <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" />
-                              </div>
-                              <div className="modal-body">
-                                <div className="" style={{ display:'flex', justifyContent:'left' }}>
-                                  <h5>เลขประจำตัวการสอบ: </h5>
-                                  <p style={{ marginLeft: "16px" }}>{noti_user}</p>
-                                </div>
-                                <div className="" style={{ display:'flex', justifyContent:'left' }}>
-                                  <h5>เลขบัตรประจำตัวประชาชน: </h5>
-                                  <p style={{ marginLeft: "16px" }}>{noti_id_card}</p>
-                                </div>
-                              </div>
-                              <div className="modal-footer"><button className="btn btn-secondary" type="button" data-bs-dismiss="modal">ยกเลิก</button>
-                                <button className="btn btn-primary" type="submit" data-bs-dismiss="modal">ตกลง</button>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )
-                    }
+                      
 
 
                     <button className="btn btn-light px-4 py-3">Cancel</button>
