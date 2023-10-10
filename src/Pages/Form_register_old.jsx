@@ -56,7 +56,7 @@ function Form_register_old() {
   const navigate = useNavigate()
   const [debug_data, setDebug_data] = useState(null)
   const [error, setError] = useState('')
-  const [error_modal, setError_modal] = useState('')
+  const [error_modal, setError_modal] = useState(null)
   const [style_modal, setStyle_modal] = useState("")
   const [provinces, setProvinces] = useState([])
   const [amphure, setAmphure] = useState([])
@@ -586,8 +586,14 @@ function Form_register_old() {
                                 <button className="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close" />
                               </div>
                               <div className="modal-body">
-                                <p>{noti_user}</p>
-                                <p>{noti_id_card}</p>
+                                <div className="" style={{ display:'flex', justifyContent:'left' }}>
+                                  <h5>เลขประจำตัวการสอบ: </h5>
+                                  <p style={{ marginLeft: "16px" }}>{noti_user}</p>
+                                </div>
+                                <div className="" style={{ display:'flex', justifyContent:'left' }}>
+                                  <h5>เลขบัตรประจำตัวประชาชน: </h5>
+                                  <p style={{ marginLeft: "16px" }}>{noti_id_card}</p>
+                                </div>
                               </div>
                               <div className="modal-footer"><button className="btn btn-secondary" type="button" data-bs-dismiss="modal">ยกเลิก</button>
                                 <button className="btn btn-primary" type="submit" data-bs-dismiss="modal">ตกลง</button>
