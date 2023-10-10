@@ -84,7 +84,7 @@ function Login_user() {
     const year_en = today.getFullYear()
     const Export_certificate = (reg_id) => {
 
-        axios.get('https://cloud-server-1.onrender.com/get_single_certi/' + reg_id).then((res) => {
+        axios.get('https://server-2-s3v5.onrender.com/get_single_certi/' + reg_id).then((res) => {
             setSingle_certi(res.data[0])
         })
     }
@@ -273,8 +273,8 @@ function Login_user() {
             120, 253, { align: "center" })
 
 
-        doc.addImage(`https://cloud-server-1.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
-        doc.addImage(`https://cloud-server-1.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
+        doc.addImage(`https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
+        doc.addImage(`https://server-2-s3v5.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
 
         doc.setFont("Font")
         const fontSize25 = 16
@@ -670,7 +670,7 @@ function Login_user() {
                                                                                         <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
 
                                                                                         <img
-                                                                                            src={`https://cloud-server-1.onrender.com/images/${val.profile_img}`}
+                                                                                            src={`https://server-2-s3v5.onrender.com/images/${val.profile_img}`}
                                                                                             className="img-thumbnail"
                                                                                             alt="Hollywood Sign on The Hill"
                                                                                             width={100}

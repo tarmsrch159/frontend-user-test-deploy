@@ -17,7 +17,7 @@ function Payment_form() {
         if (confirm("คุณต้องการบันทึกข้อมูลหรือไม่")) {
             const formdata = new FormData
             formdata.append("image", img)
-            axios.put(`https://cloud-server-1.onrender.com/payment/${id}`, formdata).then((res) => {
+            axios.put(`https://server-2-s3v5.onrender.com/payment/${id}`, formdata).then((res) => {
                 console.log(res)
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
@@ -33,7 +33,7 @@ function Payment_form() {
     }
 
     useEffect(() => {
-        axios.get(`https://cloud-server-1.onrender.com/check_payment/${id}`).then((res) => {
+        axios.get(`https://server-2-s3v5.onrender.com/check_payment/${id}`).then((res) => {
             setSingle_user(res.data)
         })
     }, [])
@@ -85,7 +85,7 @@ function Payment_form() {
                                                                     <div className="col-6" style={{ textAlign: 'center' }}>
                                                                         <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว
                                                                         </h5>
-                                                                        <img src={`https://cloud-server-1.onrender.com/images/${info.profile_img}`} class="img-thumbnail mx-5" alt="" width={150} height={100} />
+                                                                        <img src={`https://server-2-s3v5.onrender.com/images/${info.profile_img}`} class="img-thumbnail mx-5" alt="" width={150} height={100} />
                                                                     </div>
                                                                     
                                                                 </div>
