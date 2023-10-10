@@ -120,6 +120,7 @@ function Form_register_old() {
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
         setError_modal(false)
+        alert(res.data.rows[0].reg_id, res.data.id_card)
         setNoti_user(res.data.rows[0].reg_id)
         setNoti_id_card(res.data.id_card)
         // window.location = '/login_user'
