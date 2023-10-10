@@ -80,7 +80,7 @@ function Form_register() {
   }
 
 
-  const add_member = () => {
+  const add_member = async () => {
     if (!id_card || !name || !lastname || !gender || !course || !candidate
       || !prefix || !nationality || !birthday || !tel
       || !address || !educational || !branch || !email || !images || !line_id) {
@@ -116,7 +116,7 @@ function Form_register() {
     formdata.append("kn_score", 0)
     formdata.append("profi_score", 0)
     formdata.append("sum_score", 0)
-    axios.post("https://server-2-s3v5.onrender.com/add_member", formdata).then((res) => {
+    await axios.post("https://server-2-s3v5.onrender.com/add_member", formdata).then((res) => {
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
         setError_modal('modal')
