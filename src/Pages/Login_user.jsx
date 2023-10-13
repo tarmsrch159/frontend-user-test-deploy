@@ -636,7 +636,7 @@ function Login_user() {
                                                     {/* recaptcha */}
                                                     <div class="mb-5 mt-5" style={{ display: 'flex', justifyContent: "center" }}>
                                                         < ReCAPTCHA
-                                                            sitekey={SITE_KEY}
+                                                            sitekey={SITE_KEY_2}
                                                             onChange={onChange}
                                                         />
                                                     </div>
@@ -800,16 +800,34 @@ function Login_user() {
                                                                                 </span>
                                                                             </div>
 
+
+                                                                            <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกณฑ์การทดสอบกรมพัฒนาฝีมือแรงงาน 70%:</h5>
+                                                                                <span className='fs-6'>
+                                                                                    {val.sum_score < 70
+                                                                                        ? <div>
+                                                                                            <h4><span style={{ color: 'red', textDecoration: 'underline' }} >ไม่ผ่าน</span> (ไม่สามารถออกเกียรติบัตรได้)</h4>
+                                                                                        
+                                                                                        </div>
+                                                                                        : <h4 style={{ color: 'green', textDecoration: 'underline' }} >ผ่าน</h4>
+                                                                                    }
+                                                                                </span>
+                                                                            </div>
+
+
+
                                                                             <div className="mb-3" style={{ display: 'flex' }}>
                                                                                 <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกียรติบัตร:</h5>
                                                                                 <span className='fs-6'>
                                                                                     {val.book_id == ''
-                                                                                        ? <button className='btn btn-info px-3' disabled>
-                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
-                                                                                                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                                                                                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
-                                                                                            </svg>
-                                                                                        </button>
+                                                                                        ? <div>
+                                                                                            <button className='btn btn-info px-3' disabled>
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                                                                                                    <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                                                                    <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                                                                                                </svg>
+                                                                                            </button>
+                                                                                        </div>
                                                                                         :
                                                                                         <>
                                                                                             <button
