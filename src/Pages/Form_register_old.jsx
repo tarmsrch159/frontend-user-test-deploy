@@ -107,10 +107,9 @@ function Form_register_old() {
     }
 
     const formdata = new FormData
-    formdata.append("profile_img", images)
+    formdata.append("image", images)
     formdata.append("id_card_img", id_card_img)
     formdata.append("educational_img", educational_Img)
-    formdata.append("profile_img", images)
     formdata.append("id_card", id_card)
     formdata.append("name", name)
     formdata.append("lastname", lastname)
@@ -607,7 +606,7 @@ function Form_register_old() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>รูปประจำตัว <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
-                        <input type="file" name='profile_img' onChange={onImageChange} multiple accept='image/*' className="form-control py-2" id="customFile" />
+                        <input type="file" name='image' onChange={onImageChange} multiple accept='image/*' className="form-control py-2" id="customFile" />
 
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาเลือกรูประจำตัว *</p>
