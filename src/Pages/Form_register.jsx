@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { createRef, useState, useEffect } from 'react'
 import axios from 'axios'
 import React from 'react'
 import { Route } from 'react-router-dom'
@@ -6,10 +6,27 @@ import { useNavigate } from 'react-router-dom'
 import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css";
 import { useParams } from 'react-router-dom'
+import { createFileName, useScreenshot } from 'use-react-screenshot'
 
 
 function Form_register() {
   const { course_name } = useParams()
+  const ref = createRef(null)
+  const [image, takeScreenshot] = useScreenshot({
+    type: 'image/jpg',
+    quality: 1.0
+  })
+
+  const download = (image, { name = 'ข้อมูลสำหรับการตรวจสอบสถานะ', extension = 'jpg' } = {}) => {
+    const a = document.createElement('a')
+    a.href = image
+    a.download = createFileName(extension, name)
+    a.click()
+  }
+
+  const getImage = () => {
+    takeScreenshot(ref.current).then(download)
+  }
 
   const [id_card, setId_card] = useState("")
   const [name, setName] = useState("")
@@ -79,17 +96,22 @@ function Form_register() {
 
   }
 
+  const [id_card_img, setId_card_img] = useState([])
+  const [educational_Img, setEducational_Img] = useState([])
 
-  const add_member = async () => {
+  const add_member = () => {
     if (!id_card || !name || !lastname || !gender || !course || !candidate
       || !prefix || !nationality || !birthday || !tel
-      || !address || !educational || !branch || !email || !images || !line_id) {
+      || !address || !educational || !branch || !email || !images || !line_id || !id_card_img || !educational_Img) {
       alert('กรุณากรอกข้อมูลให้ครบ')
       return false
     }
 
     const formdata = new FormData
-    formdata.append("image", images)
+    formdata.append("profile_img", images)
+    formdata.append("id_card_img", id_card_img)
+    formdata.append("educational_img", educational_Img)
+    formdata.append("profile_img", images)
     formdata.append("id_card", id_card)
     formdata.append("name", name)
     formdata.append("lastname", lastname)
@@ -116,7 +138,8 @@ function Form_register() {
     formdata.append("kn_score", 0)
     formdata.append("profi_score", 0)
     formdata.append("sum_score", 0)
-    await axios.post("https://server-2-s3v5.onrender.com/add_member", formdata).then((res) => {
+    axios.post("https://server-2-s3v5.onrender.com/add_member", formdata).then((res) => {
+
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
         setShow_modal(true)
@@ -127,7 +150,6 @@ function Form_register() {
       } else {
         setError(true)
         setShow_modal(false)
-        setError_modal('')
         alert("เกิดข้อผิดพลาด")
       }
     })
@@ -170,10 +192,10 @@ function Form_register() {
   useEffect(() => {
     if (!id_card || !name || !lastname || !gender || !course || !candidate
       || !prefix || !nationality || !birthday || !tel
-      || !address || !educational || !branch || !email || !images || !line_id) {
+      || !address || !educational || !branch || !email || !images || !line_id || !id_card_img || !educational_Img) {
       setDebug_data(true)
       setStyle_modal("")
-    } else if (images == "") {
+    } else if (images == "" || id_card_img == "" || educational_Img == "") {
       setDebug_data(true)
       setStyle_modal("")
     }
@@ -182,7 +204,7 @@ function Form_register() {
       setStyle_modal("modal")
     }
   }, [id_card, name, lastname, gender, course, candidate, prefix, nationality, birthday,
-    tel, address, educational, branch, email, images, line_id])
+    tel, address, educational, branch, email, images, line_id, id_card_img, educational_Img])
 
   useEffect(() => {
     const course_effect = async () => {
@@ -218,7 +240,8 @@ function Form_register() {
           ? <div className="row">
             <div className="col-md-12 grid-margin stretch-card">
               <div className="card">
-                <div className="card-body" >
+                <div ref={ref} className="card-body" >
+
                   <h4 className="card-title mt-3" style={{ textAlign: "center" }} >ข้อมูลสำหรับการตรวจสอบสถานะ</h4>
                   <hr />
 
@@ -239,6 +262,23 @@ function Form_register() {
                         <h4>{noti_id_card}</h4>
                       </span>
                     </div>
+                  </div>
+
+
+                  <div className="form-group row">
+                    <div className="col-sm-9">
+
+                    </div>
+                    <div className="col-4 col-sm-4 d-flex align-items-center">
+                      <p><span style={{ color: 'red' }}>* </span>ปริ้นใบสมัครสอบ</p>
+                      <button className='btn btn-info py-3 px-4 mx-4' onClick={getImage}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                          <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                          <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                        </svg>
+                      </button>
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -578,19 +618,39 @@ function Form_register() {
                     </div>
 
                     {/* profile_img */}
+                    {/* สาขา */}
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>รูปประจำตัว <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
-                        <input type="file" onChange={onImageChange} multiple accept='image/*' className="form-control py-2" id="customFile" />
-                        {imageURLs.map((imageSRC, idx) => {
-                          return (
-                            <>
-                              <img key={idx} src={imageSRC} alt="" width={200} height={200} className='mt-4 border border-black' />
-                            </>
-                          )
-                        })}
+                        <input type="file" name='profile_img' onChange={onImageChange} multiple accept='image/*' className="form-control py-2" id="customFile" />
+
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาเลือกรูประจำตัว *</p>
+                          : null}
+                      </div>
+                    </div>
+
+                    {/* สาขา */}
+                    <div className="form-group row">
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบสำเนาบัตรประจำตัวประชาชน <span style={{ color: "red" }}>*</span></label>
+                      <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
+                        <input type="file" name='id_card_img' onChange={(e) => setId_card_img(e.target.files[0])} multiple accept='id_card_img/*' className="form-control py-2" id="customFile" />
+
+                        {debug_data
+                          ? <p className="text-danger mt-2">กรุณาแนบสำเนาบัตรประจำตัวประชาชน *</p>
+                          : null}
+                      </div>
+                    </div>
+
+
+                    {/* education img */}
+                    <div className="form-group row">
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบวุฒิการศึกษา <span style={{ color: "red" }}>*</span></label>
+                      <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
+                        <input type="file" name='educational_img' onChange={(e) => setEducational_Img(e.target.files[0])} multiple accept='Educational_Img/*' className="form-control py-2" id="customFile" />
+
+                        {debug_data
+                          ? <p className="text-danger mt-2">กรุณาแนบวุฒิการศึกษา *</p>
                           : null}
                       </div>
                     </div>
@@ -601,7 +661,7 @@ function Form_register() {
 
                       <button className="btn btn-warning py-3" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={add_member}>ยืนยันข้อมูล</button>
 
-              
+
                     </div>
 
                   </form>

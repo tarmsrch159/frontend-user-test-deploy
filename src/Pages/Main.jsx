@@ -29,46 +29,48 @@ function Main() {
                                                     <p className="card-description text-center">
 
                                                     </p>
+                                                    <div className="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th scope="col" style={{ fontSize: "16px" }}>ลำดับ</th>
+                                                                    <th scope="col" style={{ fontSize: "16px" }}>สาขา</th>
+                                                                    <th scope="col" style={{ fontSize: "16px" }}>หน่วยงาน</th>
+                                                                    <th scope="col" style={{ fontSize: "16px" }}></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th scope="row">1</th>
+                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ประมวลผลคำ)</td>
+                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
+                                                                    <td>
+                                                                        <Link to={`/register/1`}>
+                                                                            <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
+                                                                                สมัคร
+                                                                            </button>
+                                                                        </Link>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th scope="row">2</th>
+                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ตารางทำการ)</td>
+                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
+                                                                    <td>
+                                                                        <Link to={`/register/2`}>
+                                                                            <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
+                                                                                สมัคร
+                                                                            </button>
+                                                                        </Link>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
 
-                                                    <table class="table align-middle">
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col" style={{ fontSize: "16px" }}>ลำดับ</th>
-                                                                <th scope="col" style={{ fontSize: "16px" }}>สาขา</th>
-                                                                <th scope="col" style={{ fontSize: "16px" }}>หน่วยงาน</th>
-                                                                <th scope="col" style={{ fontSize: "16px" }}></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th scope="row">1</th>
-                                                                <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ประมวลผลคำ)</td>
-                                                                <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
-                                                                <td>
-                                                                    <Link to={`/register/1`}>
-                                                                        <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
-                                                                            สมัคร
-                                                                        </button>
-                                                                    </Link>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ตารางทำการ)</td>
-                                                                <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
-                                                                <td>
-                                                                    <Link to={`/register/2`}>
-                                                                        <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
-                                                                            สมัคร
-                                                                        </button>
-                                                                    </Link>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
 
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
 
                                                 </div>
                                             </div>
@@ -87,8 +89,7 @@ function Main() {
             {/* partial:partials/_footer.html */}
             <footer className="footer">
                 <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash.</span>
-                    <span className="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Copyright © 2021. All rights reserved.</span>
+                    
                 </div>
             </footer>
             {/* partial */}
