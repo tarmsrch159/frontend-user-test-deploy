@@ -840,7 +840,7 @@ function Login_user() {
                                                                                             type="button"
                                                                                             className="btn btn-primary"
                                                                                             data-bs-toggle="modal"
-                                                                                            data-bs-target="#exampleModal"
+                                                                                            data-bs-target="exampleModal"
                                                                                             onClick={() => Export_certificate(val.reg_id)}
                                                                                         >
                                                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
