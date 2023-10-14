@@ -570,7 +570,6 @@ function Login_user() {
         await get_single_reg()
     }
 
-    console.log(single_certi)
 
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
