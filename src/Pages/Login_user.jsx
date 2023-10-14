@@ -83,36 +83,38 @@ function Login_user() {
     const today = new Date()
     const year_thai = today.getFullYear() + 543
     const year_en = today.getFullYear()
-    const Export_certificate = (reg_id) => {
+    const Export_certificate = async (reg_id) => {
 
-        axios.get('https://server-2-s3v5.onrender.com/get_single_certi/' + reg_id).then((res) => {
+        await axios.get('https://server-2-s3v5.onrender.com/get_single_certi/' + reg_id).then((res) => {
             setSingle_certi(res.data[0])
         })
     }
 
     const get_single_reg = async () => {
-        const doc = new jsPDF()
-        const imgWidth = 35;
-        const imgHeight = 35;
-        const pageWidth = doc.internal.pageSize.getWidth()
-        const pageHeight = doc.internal.pageSize.getHeight()
-        const x = (pageWidth - imgWidth) / 2;
-        const y_position = (pageHeight - imgHeight) / 2
-        const x_text = pageWidth / 2
 
-        //Add Font th-sarabun
-        doc.addFileToVFS("Font.ttf", font)
-        doc.addFont("Font.ttf", "Font", "normal")
-
-        doc.addFileToVFS("MyFont.ttf", fontBold)
-        doc.addFont("MyFont.ttf", "MyFont", "normal")
 
         // await doc.addImage(`https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
         // await doc.addImage(`https://server-2-s3v5.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
 
         const img = new Image()
-        img.src = `https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`
+        img.src = await `https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`
         img.onload = () => {
+
+            const doc = new jsPDF()
+            const imgWidth = 35;
+            const imgHeight = 35;
+            const pageWidth = doc.internal.pageSize.getWidth()
+            const pageHeight = doc.internal.pageSize.getHeight()
+            const x = (pageWidth - imgWidth) / 2;
+            const y_position = (pageHeight - imgHeight) / 2
+            const x_text = pageWidth / 2
+
+            //Add Font th-sarabun
+            doc.addFileToVFS("Font.ttf", font)
+            doc.addFont("Font.ttf", "Font", "normal")
+
+            doc.addFileToVFS("MyFont.ttf", fontBold)
+            doc.addFont("MyFont.ttf", "MyFont", "normal")
             //Page1
             doc.addImage(logo_certi, 'png', x, 15, imgWidth, imgHeight)
             doc.setFont("MyFont")
@@ -281,287 +283,294 @@ function Login_user() {
             doc.addImage(img, 'PNG', 41, 232, 25, 30)
 
             doc.setFont("Font")
-        const fontSize25 = 16
-        doc.setFontSize(fontSize25)
-        doc.text(`...........................................`,
-            53, 265, { align: "center" })
+            const fontSize25 = 16
+            doc.setFontSize(fontSize25)
+            doc.text(`...........................................`,
+                53, 265, { align: "center" })
 
-        doc.setFont("Font")
-        const fontSize26 = 16
-        doc.setFontSize(fontSize26)
-        doc.text(`ผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงาน`,
-            53, 270, { align: "center" })
+            doc.setFont("Font")
+            const fontSize26 = 16
+            doc.setFontSize(fontSize26)
+            doc.text(`ผู้ผ่านการทดสอบมาตรฐานฝีมือแรงงาน`,
+                53, 270, { align: "center" })
 
-        doc.setFont("Font")
-        const fontSize27 = 16
-        doc.setFontSize(fontSize27)
-        doc.text(`Examiner`,
-            53, 275, { align: "center" })
-
-
-
-
-        //Page2
-        doc.addPage()
-        doc.setFont("MyFont")
-        const fontSize28 = 16
-        doc.setFontSize(fontSize28)
-        doc.text(`คะแนนการทดสอบ`, 50, 20, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize29 = 16
-        doc.setFontSize(fontSize29)
-        doc.text(`(Total Score)`, 50, 26, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize30 = 16
-        doc.setFontSize(fontSize30)
-        doc.text(`${single_certi.sum_score}%`, 50, 37, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize31 = 16
-        doc.setFontSize(fontSize31)
-        doc.text(`.................................`, 50, 38, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize32 = 16
-        doc.setFontSize(fontSize32)
-        doc.text('ภาคความรู้', x_text, 20, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize33 = 16
-        doc.setFontSize(fontSize33)
-        doc.text('(Theoretical)', x_text, 26, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize34 = 16
-        doc.setFontSize(fontSize34)
-        doc.text(`${single_certi.kn_score}%`, x_text, 37, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize35 = 16
-        doc.setFontSize(fontSize35)
-        doc.text('.................................', x_text, 38, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize36 = 16
-        doc.setFontSize(fontSize36)
-        doc.text('ภาคความสามารถ', 155, 20, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize37 = 16
-        doc.setFontSize(fontSize37)
-        doc.text('(Practical)', 155, 26, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize38 = 16
-        doc.setFontSize(fontSize38)
-        doc.text(`${single_certi.profi_score}%`, 155, 37, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize39 = 16
-        doc.setFontSize(fontSize39)
-        doc.text('.................................', 155, 38, { align: "center" })
-
-        doc.setFont("MyFont")
-        const fontSize40 = 16
-        doc.setFontSize(fontSize40)
-        doc.text(`ชื่อผู้ทดสอบมาตรฐานฝีมือแรงงาน`, 50, 60, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize41 = 16
-        doc.setFontSize(fontSize41)
-        doc.text(`(Examiner)`, 50, 67, { align: "center" })
+            doc.setFont("Font")
+            const fontSize27 = 16
+            doc.setFontSize(fontSize27)
+            doc.text(`Examiner`,
+                53, 275, { align: "center" })
 
 
 
-        //เลขที่ขึ้นทะเบียน
-        doc.setFont("MyFont")
-        const fontSize42 = 16
-        doc.setFontSize(fontSize42)
-        doc.text(`เลขที่ขึ้นทะเบียน`, 131, 60, { align: "center" })
 
-        doc.setFont("Font")
-        const fontSize43 = 16
-        doc.setFontSize(fontSize43)
-        doc.text(`(Examiner No.)`, 131, 67, { align: "center" })
+            //Page2
+            doc.addPage()
+            doc.setFont("MyFont")
+            const fontSize28 = 16
+            doc.setFontSize(fontSize28)
+            doc.text(`คะแนนการทดสอบ`, 50, 20, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`มฝร-1-4-22-008-0012-59`, 132, 80, { align: "center" })
+            doc.setFont("Font")
+            const fontSize29 = 16
+            doc.setFontSize(fontSize29)
+            doc.text(`(Total Score)`, 50, 26, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`.................................................`, 131, 80.8, { align: "center" })
+            doc.setFont("MyFont")
+            const fontSize30 = 16
+            doc.setFontSize(fontSize30)
+            doc.text(`${single_certi.sum_score}%`, 50, 37, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`มฝร-1-4-22-008-0013-59`, 132, 95, { align: "center" })
+            doc.setFont("Font")
+            const fontSize31 = 16
+            doc.setFontSize(fontSize31)
+            doc.text(`.................................`, 50, 38, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`.................................................`, 131, 95.8, { align: "center" })
+            doc.setFont("MyFont")
+            const fontSize32 = 16
+            doc.setFontSize(fontSize32)
+            doc.text('ภาคความรู้', x_text, 20, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`มฝร-1-4-22-008-0014-59`, 132, 110, { align: "center" })
+            doc.setFont("Font")
+            const fontSize33 = 16
+            doc.setFontSize(fontSize33)
+            doc.text('(Theoretical)', x_text, 26, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`.................................................`, 131, 110.8, { align: "center" })
+            doc.setFont("MyFont")
+            const fontSize34 = 16
+            doc.setFontSize(fontSize34)
+            doc.text(`${single_certi.kn_score}%`, x_text, 37, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize35 = 16
+            doc.setFontSize(fontSize35)
+            doc.text('.................................', x_text, 38, { align: "center" })
+
+            doc.setFont("MyFont")
+            const fontSize36 = 16
+            doc.setFontSize(fontSize36)
+            doc.text('ภาคความสามารถ', 155, 20, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize37 = 16
+            doc.setFontSize(fontSize37)
+            doc.text('(Practical)', 155, 26, { align: "center" })
+
+            doc.setFont("MyFont")
+            const fontSize38 = 16
+            doc.setFontSize(fontSize38)
+            doc.text(`${single_certi.profi_score}%`, 155, 37, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize39 = 16
+            doc.setFontSize(fontSize39)
+            doc.text('.................................', 155, 38, { align: "center" })
+
+            doc.setFont("MyFont")
+            const fontSize40 = 16
+            doc.setFontSize(fontSize40)
+            doc.text(`ชื่อผู้ทดสอบมาตรฐานฝีมือแรงงาน`, 50, 60, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize41 = 16
+            doc.setFontSize(fontSize41)
+            doc.text(`(Examiner)`, 50, 67, { align: "center" })
 
 
-        //ลง Signature
-        doc.setFont("MyFont")
-        const fontSize44 = 16
-        doc.setFontSize(fontSize44)
-        doc.text(`ลงชื่อ`, 175, 60, { align: "center" })
 
-        doc.setFont("Font")
-        const fontSize45 = 16
-        doc.setFontSize(fontSize45)
-        doc.text(`(Signature)`, 175, 67, { align: "center" })
+            //เลขที่ขึ้นทะเบียน
+            doc.setFont("MyFont")
+            const fontSize42 = 16
+            doc.setFontSize(fontSize42)
+            doc.text(`เลขที่ขึ้นทะเบียน`, 131, 60, { align: "center" })
 
-        doc.addImage(wutthiphong_signature, 170, 72, 10, 10)
+            doc.setFont("Font")
+            const fontSize43 = 16
+            doc.setFontSize(fontSize43)
+            doc.text(`(Examiner No.)`, 131, 67, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`...............`, 175, 80.8, { align: "center" })
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`มฝร-1-4-22-008-0012-59`, 132, 80, { align: "center" })
 
-        doc.addImage(Sattarpoom_signature, 170, 87, 10, 10)
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`.................................................`, 131, 80.8, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`...............`, 175, 95.8, { align: "center" })
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`มฝร-1-4-22-008-0013-59`, 132, 95, { align: "center" })
 
-        doc.addImage(Baramee_signature, 166, 102, 20, 10)
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`.................................................`, 131, 95.8, { align: "center" })
 
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`...............`, 175, 110.8, { align: "center" })
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`มฝร-1-4-22-008-0014-59`, 132, 110, { align: "center" })
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`.................................................`, 131, 110.8, { align: "center" })
 
 
-        const x_2 = 25;
-        let y_2 = 80;
-        const text_1 = [
-            { content: '1.      ', fontSize: 16, Font: 'Font' },
-            { content: `นายวุฒิพงษ์  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+            //ลง Signature
+            doc.setFont("MyFont")
+            const fontSize44 = 16
+            doc.setFontSize(fontSize44)
+            doc.text(`ลงชื่อ`, 175, 60, { align: "center" })
 
-        ];
-        // Initialize the current X position
-        let currentX_2 = x_2;
-        for (const segment of text_1) {
-            const { content, fontSize, Font } = segment;
-            if (Font) {
-                doc.setFont(Font);
+            doc.setFont("Font")
+            const fontSize45 = 16
+            doc.setFontSize(fontSize45)
+            doc.text(`(Signature)`, 175, 67, { align: "center" })
+
+            doc.addImage(wutthiphong_signature, 170, 72, 10, 10)
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`...............`, 175, 80.8, { align: "center" })
+
+            doc.addImage(Sattarpoom_signature, 170, 87, 10, 10)
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`...............`, 175, 95.8, { align: "center" })
+
+            doc.addImage(Baramee_signature, 166, 102, 20, 10)
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`...............`, 175, 110.8, { align: "center" })
+
+
+            const x_2 = 25;
+            let y_2 = 80;
+            const text_1 = [
+                { content: '1.      ', fontSize: 16, Font: 'Font' },
+                { content: `นายวุฒิพงษ์  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+
+            ];
+            // Initialize the current X position
+            let currentX_2 = x_2;
+            for (const segment of text_1) {
+                const { content, fontSize, Font } = segment;
+                if (Font) {
+                    doc.setFont(Font);
+                }
+                // Set the font size for this segment
+                if (fontSize) {
+                    doc.setFontSize(fontSize);
+                }
+                const textWidth = doc.getTextWidth(content);
+                // Add the segment to the PDF
+                doc.text(content, currentX_2, y_2,);
+                currentX_2 += textWidth
             }
-            // Set the font size for this segment
-            if (fontSize) {
-                doc.setFontSize(fontSize);
+
+            doc.setFont("Font")
+            const fontSize46 = 16
+            doc.setFontSize(fontSize46)
+            doc.text(`..........................................................................`, 64, 80.8, { align: "center" })
+
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`Mr. Wutthiphong Khuandin`, 58, 88, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize47 = 16
+            doc.setFontSize(fontSize47)
+            doc.text(`..........................................................................`, 64, 88.8, { align: "center" })
+
+            const x_3 = 25;
+            let y_3 = 95;
+            const text_2 = [
+                { content: '2.      ', fontSize: 16, Font: 'Font' },
+                { content: `นายสัตถาภูมิ  ไทยพานิช`, fontSize: 16, Font: 'Font' },
+
+            ];
+            // Initialize the current X position
+            let currentX_3 = x_3;
+            for (const segment of text_2) {
+                const { content, fontSize, Font } = segment;
+                if (Font) {
+                    doc.setFont(Font);
+                }
+                // Set the font size for this segment
+                if (fontSize) {
+                    doc.setFontSize(fontSize);
+                }
+                const textWidth = doc.getTextWidth(content);
+                // Add the segment to the PDF
+                doc.text(content, currentX_3, y_3,);
+                currentX_3 += textWidth
             }
-            const textWidth = doc.getTextWidth(content);
-            // Add the segment to the PDF
-            doc.text(content, currentX_2, y_2,);
-            currentX_2 += textWidth
+
+            doc.setFont("Font")
+            const fontSize48 = 16
+            doc.setFontSize(fontSize48)
+            doc.text(`..........................................................................`, 64, 95.8, { align: "center" })
+
+            doc.setFont("Font")
+            doc.setFontSize(16)
+            doc.text(`Mr.Sattarpoom Thaiparnit`, 57, 103, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize49 = 16
+            doc.setFontSize(fontSize49)
+            doc.text(`..........................................................................`, 64, 103.8, { align: "center" })
+
+            const x_4 = 25;
+            let y_4 = 110;
+            const text_3 = [
+                { content: '3.      ', fontSize: 16, Font: 'Font' },
+                { content: `นายบารมี  โอสธีรกุล  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+
+            ];
+            // Initialize the current X position
+            let currentX_4 = x_4;
+            for (const segment of text_3) {
+                const { content, fontSize, Font } = segment;
+                if (Font) {
+                    doc.setFont(Font);
+                }
+                // Set the font size for this segment
+                if (fontSize) {
+                    doc.setFontSize(fontSize);
+                }
+                const textWidth = doc.getTextWidth(content);
+                // Add the segment to the PDF
+                doc.text(content, currentX_4, y_4,);
+                currentX_4 += textWidth
+            }
+
+            doc.setFont("Font")
+            const fontSize50 = 16
+            doc.setFontSize(fontSize50)
+            doc.text(`..........................................................................`, 64, 110.8, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize51 = 16
+            doc.setFontSize(fontSize51)
+            doc.text(`Mr.Baramee  Osateerakul`, 57, 118, { align: "center" })
+
+            doc.setFont("Font")
+            const fontSize52 = 16
+            doc.setFontSize(fontSize52)
+            doc.text(`..........................................................................`, 64, 118.8, { align: "center" })
+
+            doc.save("ข้อมูลเกียรติบัตรผู้ที่ผ่านการสอบ.pdf")
         }
 
-        doc.setFont("Font")
-        const fontSize46 = 16
-        doc.setFontSize(fontSize46)
-        doc.text(`..........................................................................`, 64, 80.8, { align: "center" })
 
-
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`Mr. Wutthiphong Khuandin`, 58, 88, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize47 = 16
-        doc.setFontSize(fontSize47)
-        doc.text(`..........................................................................`, 64, 88.8, { align: "center" })
-
-        const x_3 = 25;
-        let y_3 = 95;
-        const text_2 = [
-            { content: '2.      ', fontSize: 16, Font: 'Font' },
-            { content: `นายสัตถาภูมิ  ไทยพานิช`, fontSize: 16, Font: 'Font' },
-
-        ];
-        // Initialize the current X position
-        let currentX_3 = x_3;
-        for (const segment of text_2) {
-            const { content, fontSize, Font } = segment;
-            if (Font) {
-                doc.setFont(Font);
-            }
-            // Set the font size for this segment
-            if (fontSize) {
-                doc.setFontSize(fontSize);
-            }
-            const textWidth = doc.getTextWidth(content);
-            // Add the segment to the PDF
-            doc.text(content, currentX_3, y_3,);
-            currentX_3 += textWidth
-        }
-
-        doc.setFont("Font")
-        const fontSize48 = 16
-        doc.setFontSize(fontSize48)
-        doc.text(`..........................................................................`, 64, 95.8, { align: "center" })
-
-        doc.setFont("Font")
-        doc.setFontSize(16)
-        doc.text(`Mr.Sattarpoom Thaiparnit`, 57, 103, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize49 = 16
-        doc.setFontSize(fontSize49)
-        doc.text(`..........................................................................`, 64, 103.8, { align: "center" })
-
-        const x_4 = 25;
-        let y_4 = 110;
-        const text_3 = [
-            { content: '3.      ', fontSize: 16, Font: 'Font' },
-            { content: `นายบารมี  โอสธีรกุล  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
-
-        ];
-        // Initialize the current X position
-        let currentX_4 = x_4;
-        for (const segment of text_3) {
-            const { content, fontSize, Font } = segment;
-            if (Font) {
-                doc.setFont(Font);
-            }
-            // Set the font size for this segment
-            if (fontSize) {
-                doc.setFontSize(fontSize);
-            }
-            const textWidth = doc.getTextWidth(content);
-            // Add the segment to the PDF
-            doc.text(content, currentX_4, y_4,);
-            currentX_4 += textWidth
-        }
-
-        doc.setFont("Font")
-        const fontSize50 = 16
-        doc.setFontSize(fontSize50)
-        doc.text(`..........................................................................`, 64, 110.8, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize51 = 16
-        doc.setFontSize(fontSize51)
-        doc.text(`Mr.Baramee  Osateerakul`, 57, 118, { align: "center" })
-
-        doc.setFont("Font")
-        const fontSize52 = 16
-        doc.setFontSize(fontSize52)
-        doc.text(`..........................................................................`, 64, 118.8, { align: "center" })
-
-        doc.save("ข้อมูลเกียรติบัตรผู้ที่ผ่านการสอบ.pdf")
-        }
-
-        
     }
+
+    const handle_Export = async (val_reg_id) => {
+        await Export_certificate(val_reg_id)
+        await get_single_reg()
+    }
+
+    console.log(single_certi)
 
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
@@ -836,57 +845,57 @@ function Login_user() {
                                                                                         </div>
                                                                                         :
                                                                                         <>
-                                                                                           <button
-                                                                                            type="button"
-                                                                                            className="btn btn-primary"
-                                                                                            data-bs-toggle="modal"
-                                                                                            data-bs-target="exampleModal"
-                                                                                            onClick={() => Export_certificate(val.reg_id)}
-                                                                                        >
-                                                                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-                                                                                                <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
-                                                                                                <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                                                                            </svg>
-                                                                                        </button>
-                                                                                        {/* Modal */}
-                                                                                        <div
-                                                                                            className="modal fade"
-                                                                                            id="exampleModal"
-                                                                                            tabIndex={-1}
-                                                                                            aria-labelledby="exampleModalLabel"
-                                                                                            aria-hidden="true"
-                                                                                        >
-                                                                                            <div className="modal-dialog">
-                                                                                                <div className="modal-content">
-                                                                                                    <div className="modal-header">
-                                                                                                        <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                                                                            <button
+                                                                                                type="button"
+                                                                                                className="btn btn-primary"
+                                                                                                // data-bs-toggle="modal"
+                                                                                                // data-bs-target="#exampleModal"
+                                                                                                onClick={() => handle_Export(val.reg_id)}
+                                                                                            >
+                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                                                                                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                                                                                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                                                                </svg>
+                                                                                            </button>
+                                                                                            {/* Modal */}
+                                                                                            <div
+                                                                                                className="modal fade"
+                                                                                                id="exampleModal"
+                                                                                                tabIndex={-1}
+                                                                                                aria-labelledby="exampleModalLabel"
+                                                                                                aria-hidden="true"
+                                                                                            >
+                                                                                                <div className="modal-dialog">
+                                                                                                    <div className="modal-content">
+                                                                                                        <div className="modal-header">
+                                                                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">
 
-                                                                                                        </h1>
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            className="btn-close"
-                                                                                                            data-bs-dismiss="modal"
-                                                                                                            aria-label="Close"
-                                                                                                        />
-                                                                                                    </div>
-                                                                                                    <div className="modal-body">
-                                                                                                        <h5>ต้องการออกรายงานเกียรติบัตรใช่หรือไม่</h5>
-                                                                                                    </div>
-                                                                                                    <div className="modal-footer">
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            className="btn btn-secondary"
-                                                                                                            data-bs-dismiss="modal"
-                                                                                                        >
-                                                                                                            ยกเลิก
-                                                                                                        </button>
-                                                                                                        <button type="button" onClick={get_single_reg} className="btn btn-primary" data-bs-dismiss="modal">
-                                                                                                            ยืนยัน
-                                                                                                        </button>
+                                                                                                            </h1>
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                className="btn-close"
+                                                                                                                data-bs-dismiss="modal"
+                                                                                                                aria-label="Close"
+                                                                                                            />
+                                                                                                        </div>
+                                                                                                        <div className="modal-body">
+                                                                                                            <h5>ต้องการออกรายงานเกียรติบัตรใช่หรือไม่</h5>
+                                                                                                        </div>
+                                                                                                        <div className="modal-footer">
+                                                                                                            <button
+                                                                                                                type="button"
+                                                                                                                className="btn btn-secondary"
+                                                                                                                data-bs-dismiss="modal"
+                                                                                                            >
+                                                                                                                ยกเลิก
+                                                                                                            </button>
+                                                                                                            <button type="button" onClick={get_single_reg} className="btn btn-primary" data-bs-dismiss="modal">
+                                                                                                                ยืนยัน
+                                                                                                            </button>
+                                                                                                        </div>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>
-                                                                                        </div>
                                                                                         </>
                                                                                     }
                                                                                 </span>
