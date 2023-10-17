@@ -603,6 +603,7 @@ function Login_user() {
         window.location = `/payment/${reg_id}`
     }
 
+    console.log(user_data)
 
     return (
         <div className="main-panel">
