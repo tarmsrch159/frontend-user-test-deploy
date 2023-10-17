@@ -524,7 +524,7 @@ function Login_user() {
             let y_4 = 110;
             const text_3 = [
                 { content: '3.      ', fontSize: 16, Font: 'Font' },
-                { content: `นายบารมี  โอสธีรกุล  เขื่อนดิน`, fontSize: 16, Font: 'Font' },
+                { content: `นายบารมี  โอสธีรกุล`, fontSize: 16, Font: 'Font' },
 
             ];
             // Initialize the current X position
