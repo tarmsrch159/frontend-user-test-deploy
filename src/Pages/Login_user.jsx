@@ -570,7 +570,7 @@ function Login_user() {
         await get_single_reg()
     }
 
-
+    const [show_modal, setShow_modal] = useState(false)
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
 
@@ -580,9 +580,11 @@ function Login_user() {
         }).then((res) => {
             //If there are not id_card, Let's show error according to message below
             if (res.data.status == "false") {
+                setShow_modal(false)
                 alert("กรุณาใส่ รหัสประจำตัวการสอบ หรือ เลขบัตรประจำตัวประชาชน")
             } else {
                 // setChange_style("modal")
+
                 const id_card = res.data.id_card
                 const hide_id_card = id_card.substr(10)
                 setDp_idcard(hide_id_card)
@@ -590,6 +592,8 @@ function Login_user() {
                 setAuthentication(true)
                 setUser_data(res.data.result)
                 setUpload_id(res.data.result[0].reg_id)
+                setShow_modal(true)
+                alert('ข้อมูลประจำตัว')
             }
         })
 
@@ -626,87 +630,55 @@ function Login_user() {
                                 <div className="content-wrapper d-flex auth px-0">
                                     <div className="row w-100 mx-0">
                                         <div className="col-lg-10 mx-auto">
-                                            <div className="auth-form-light text-left py-5 px-4 px-sm-5 mt-4 card card-body">
-                                                <div className="brand-logo"></div>
-                                                <h4 style={{ fontWeight: 'bolder' }}>ตรวจสอบสถานะการสมัคร</h4>
-                                                <form className="pt-3 mt-3" >
-                                                    <div className="form-group">
-                                                        <div>
-                                                            <h4>เลขประจำตัวการสอบ</h4>
-                                                            <input type="text" className="form-control form-control-lg" id="exampleInputEmail1" placeholder="เลขประจำตัวการสอบ"
-                                                                onChange={(e) => setReg_id(e.target.value.toUpperCase())} />
-                                                        </div>
-
-                                                        <div className='mt-3'>
-                                                            <h4>เลขบัตรประจำตัวประชาชน</h4>
-                                                            <input type="password" className=" form-control form-control-lg" id="exampleInputEmail1" placeholder="เลขบัตรประจำตัวประชาชน"
-                                                                onChange={(e) => setId_card(e.target.value)} />
-
-                                                        </div>
-
-                                                    </div>
-
-
-
-                                                    {/* recaptcha */}
-                                                    <div class="mb-5 mt-5" style={{ display: 'flex', justifyContent: "center" }}>
-                                                        < ReCAPTCHA
-                                                            sitekey={SITE_KEY}
-                                                            onChange={onChange}
-                                                        />
-                                                    </div>
-                                                    {captchaDone
-                                                        ? (<>
-                                                            {/* Submitform */}
-                                                            <button onClick={submit_login} type="button" className="btn btn-warning py-3" >
-                                                                ตรวจสอบสถานะ
-                                                            </button>
-                                                        </>
-                                                        )
-                                                        : null}
-                                                </form>
-                                            </div>
-                                            <hr />
-                                            {/* Warning */}
-                                            {authentication
+                                            {show_modal
                                                 ? <>
-                                                    <div className="auth-form-light text-left py-5 px-4 px-sm-5 mt-4 card card-body">
-                                                        <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ข้อมูลผู้สมัครสอบ</h3>
-                                                        <hr />
-                                                        {user_data.map((val) => {
-                                                            return (
-                                                                <>
-                                                                    <div key={val.reg_id} className='mt-3'>
-                                                                        <div className="mb-3" >
-                                                                            <div className="row" style={{ display: 'flex', justifyContent: 'space-around' }}>
-                                                                                <div className="col-4" style={{ display: 'flex' }}>
-                                                                                </div>
-                                                                                <div className="col-8" style={{ display: 'flex', justifyContent: 'end' }}>
-                                                                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
+                                                    {authentication
+                                                        ? <>
+                                                            <div className="auth-form-light text-left py-5 px-4 px-sm-5 mt-4 card card-body">
+                                                                <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ข้อมูลผู้สมัครสอบ</h3>
+                                                                <hr />
+                                                                {user_data.map((val) => {
+                                                                    return (
+                                                                        <>
+                                                                            <div key={val.reg_id} className='mt-3'>
+                                                                                <div className="mb-3" >
+                                                                                    <div className="row" style={{ display: 'flex', justifyContent: 'space-around' }}>
+                                                                                        <div className="col-4" style={{ display: 'flex' }}>
+                                                                                        </div>
+                                                                                        <div className="col-8" style={{ display: 'flex', justifyContent: 'end' }}>
+                                                                                            <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
+                                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
 
-                                                                                        <img
-                                                                                            src={`https://server-2-s3v5.onrender.com/images/${val.profile_img}`}
-                                                                                            className="img-thumbnail"
-                                                                                            alt=""
-                                                                                            width={100}
-                                                                                            height={100}
-                                                                                        />
+                                                                                                <img
+                                                                                                    src={`https://server-2-s3v5.onrender.com/images/${val.profile_img}`}
+                                                                                                    className="img-thumbnail"
+                                                                                                    alt=""
+                                                                                                    width={100}
+                                                                                                    height={100}
+                                                                                                />
+                                                                                            </div>
+                                                                                        </div>
                                                                                     </div>
+
                                                                                 </div>
-                                                                            </div>
+                                                                                <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                    <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>หลักสูตร(ฝึกอบรม):</h5>
+                                                                                    <span className='fs-6'>{val.course_name_th}</span>
+                                                                                </div>
+                                                                                <div className="mb-3" >
+                                                                                    <div className="row">
+                                                                                        <div className='col-3'>
+                                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ชื่อ-นามสกุล:</h5>
+                                                                                            <span className='fs-6'>{val.name} {val.lastname}</span>
+                                                                                        </div>
+                                                                                        <div className="col-9">
 
-                                                                        </div>
-                                                                        <div className="mb-3" style={{ display: 'flex' }}>
-                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>หลักสูตร(ฝึกอบรม):</h5>
-                                                                            <span className='fs-6'>{val.course_name_th}</span>
-                                                                        </div>
-                                                                        <div className="mb-3" >
-                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ชื่อ-นามสกุล:</h5>
-                                                                            <span className='fs-6'>{val.name} {val.lastname}</span>
+                                                                                        </div>
+                                                                                    </div>
 
-                                                                        </div>
-                                                                        <div className="mb-3" style={{ display: 'flex' }}>
+
+                                                                                </div>
+                                                                                {/* <div className="mb-3" style={{ display: 'flex' }}>
                                                                             <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ที่อยู่ตามทะเบียนบ้าน/ที่อยู่ตามบัตรประชาชน:</h5>
                                                                             <span className='fs-6'>{val.address}</span>
                                                                         </div>
@@ -753,171 +725,221 @@ function Login_user() {
                                                                         <div className="mb-3" style={{ display: 'flex' }}>
                                                                             <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>Line id:</h5>
                                                                             <span className='fs-6'>{val.line_id}</span>
-                                                                        </div>
-                                                                        <div className="mb-3" style={{ display: 'flex' }}>
-                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>สิทธิ์การเข้าถึง:</h5>
-                                                                            <span className='fs-6'>{val.permission}</span>
-                                                                        </div>
-
-
-                                                                        {/* Checkdebug payment */}
-                                                                        {val.permission == "รอชำระเงิน"
-                                                                            ? (
+                                                                        </div> */}
                                                                                 <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                    <h5 style={{ fontWeight: 'bold', marginRight: "10px", color: "red" }}>การยืนยันชำระเงิน:</h5>
-                                                                                    <div className='d-flex flex-column mb-3'>
-                                                                                        <span className='fs-6' style={{ marginBottom: "10px", color: "red" }}>กรุณาชำระเงิน</span>
-                                                                                        <img style={{ marginBottom: "10px", color: "red" }} src="https://cdn-icons-png.flaticon.com/512/105/105614.png" class="img-fluid" alt="" width={60} height={40} />
-                                                                                        <Link to={{ pathname: `/payment/${val.reg_id}` }}>
-                                                                                            <button type="button" className="btn btn-warning py-2 px-4"> ชำระเงิน</button>
-                                                                                        </Link>
-                                                                                    </div>
+                                                                                    <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>สิทธิ์การเข้าถึง:</h5>
+                                                                                    <span className='fs-6'>
+                                                                                        {val.receipt != ''
+                                                                                            ? 'กำลังรอตรวจสอบใบเสร็จ'
+                                                                                            : <>
+                                                                                                {val.permission}
+                                                                                            </>
+                                                                                        }</span>
                                                                                 </div>
-                                                                            )
-                                                                            : (
-                                                                                <>
-                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>การยืนยันชำระเงิน:</h5>
-                                                                                        <span className='fs-6' style={{ color: "green" }} >ชำระเงินเรียบร้อยแล้ว</span>
-                                                                                    </div>
-                                                                                    {/* <input type="file" onChange={handle_img} className="form-control py-2" id="customFile" />
-                                                                                <button type="button" onClick={upload_img} className="btn btn-warning px-5 mt-3">อัพเดตการชำระเงิน</button> */}
-                                                                                </>
-                                                                            )
-                                                                        }
-                                                                    </div>
-                                                                    {val.permission == 'รอชำระเงิน'
-                                                                        ? null
-                                                                        : <>
-                                                                            <hr />
-
-                                                                            <h3 style={{ fontWeight: 'bolder', textAlign: "center" }} className='mt-3 mb-5'>สถานะการสอบ</h3>
-
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนภาคความรู้:</h5>
-                                                                                <span className='fs-6'>{val.kn_score}</span>
-                                                                            </div>
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนภาคความสามารถ:</h5>
-                                                                                <span className='fs-6'>{val.profi_score}</span>
-                                                                            </div>
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนรวม:</h5>
-                                                                                <span className='fs-6'>{val.sum_score}</span>
-                                                                            </div>
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ผลการทดสอบ:</h5>
-                                                                                <span className='fs-6'>
-                                                                                    {val.pass_fail == ''
-                                                                                        ? <h4 style={{ color: 'red', textDecoration: 'underline' }} >ไม่ผ่าน</h4>
-                                                                                        : <h4 style={{ color: 'green', textDecoration: 'underline' }} >ผ่าน</h4>
-                                                                                    }
-                                                                                </span>
-                                                                            </div>
 
 
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกณฑ์การทดสอบกรมพัฒนาฝีมือแรงงาน 70%:</h5>
-                                                                                <span className='fs-6'>
-                                                                                    {val.sum_score < 70
-                                                                                        ? <div>
-                                                                                            <h4><span style={{ color: 'red', textDecoration: 'underline' }} >ไม่ผ่าน</span> (ไม่สามารถออกเกียรติบัตรได้)</h4>
-
+                                                                                {/* Checkdebug payment */}
+                                                                                {val.permission == "รอชำระเงิน"
+                                                                                    ? (
+                                                                                        <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                            <h5 style={{ fontWeight: 'bold', marginRight: "10px", color: "red" }}>การยืนยันชำระเงิน:</h5>
+                                                                                            <div className='d-flex flex-column mb-3'>
+                                                                                                <span className='fs-6' style={{ marginBottom: "10px", color: "red" }}>กรุณาชำระเงิน</span>
+                                                                                                <img style={{ marginBottom: "10px", color: "red" }} src="https://cdn-icons-png.flaticon.com/512/105/105614.png" class="img-fluid" alt="" width={60} height={40} />
+                                                                                                <Link to={{ pathname: `/payment/${val.reg_id}` }}>
+                                                                                                    <button type="button" className="btn btn-warning py-2 px-4"> ชำระเงิน</button>
+                                                                                                </Link>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        : <h4 style={{ color: 'green', textDecoration: 'underline' }} >ผ่าน</h4>
-                                                                                    }
-                                                                                </span>
-                                                                            </div>
-
-
-
-                                                                            <div className="mb-3" style={{ display: 'flex' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกียรติบัตร:</h5>
-                                                                                <span className='fs-6'>
-                                                                                    {val.book_id == ''
-                                                                                        ? <div>
-                                                                                            <button className='btn btn-info px-3' disabled>
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
-                                                                                                    <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                                                                                    <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
-                                                                                                </svg>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        :
+                                                                                    )
+                                                                                    : (
                                                                                         <>
-                                                                                            <button
-                                                                                                type="button"
-                                                                                                className="btn btn-primary"
-                                                                                                // data-bs-toggle="modal"
-                                                                                                // data-bs-target="#exampleModal"
-                                                                                                onClick={() => handle_Export(val.reg_id)}
-                                                                                            >
-                                                                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-                                                                                                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
-                                                                                                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                                                                                </svg>
-                                                                                            </button>
-                                                                                            {/* Modal */}
-                                                                                            <div
-                                                                                                className="modal fade"
-                                                                                                id="exampleModal"
-                                                                                                tabIndex={-1}
-                                                                                                aria-labelledby="exampleModalLabel"
-                                                                                                aria-hidden="true"
-                                                                                            >
-                                                                                                <div className="modal-dialog">
-                                                                                                    <div className="modal-content">
-                                                                                                        <div className="modal-header">
-                                                                                                            <h1 className="modal-title fs-5" id="exampleModalLabel">
+                                                                                            <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>การยืนยันชำระเงิน:</h5>
+                                                                                                <span className='fs-6' style={{ color: "green" }} >ชำระเงินเรียบร้อยแล้ว</span>
+                                                                                            </div>
+                                                                                            {/* <input type="file" onChange={handle_img} className="form-control py-2" id="customFile" />
+                                                                                <button type="button" onClick={upload_img} className="btn btn-warning px-5 mt-3">อัพเดตการชำระเงิน</button> */}
+                                                                                        </>
+                                                                                    )
+                                                                                }
+                                                                            </div>
+                                                                            {val.permission == 'รอชำระเงิน'
+                                                                                ? null
+                                                                                : <>
+                                                                                    <hr />
 
-                                                                                                            </h1>
-                                                                                                            <button
-                                                                                                                type="button"
-                                                                                                                className="btn-close"
-                                                                                                                data-bs-dismiss="modal"
-                                                                                                                aria-label="Close"
-                                                                                                            />
-                                                                                                        </div>
-                                                                                                        <div className="modal-body">
-                                                                                                            <h5>ต้องการออกรายงานเกียรติบัตรใช่หรือไม่</h5>
-                                                                                                        </div>
-                                                                                                        <div className="modal-footer">
-                                                                                                            <button
-                                                                                                                type="button"
-                                                                                                                className="btn btn-secondary"
-                                                                                                                data-bs-dismiss="modal"
-                                                                                                            >
-                                                                                                                ยกเลิก
-                                                                                                            </button>
-                                                                                                            <button type="button" onClick={get_single_reg} className="btn btn-primary" data-bs-dismiss="modal">
-                                                                                                                ยืนยัน
-                                                                                                            </button>
+                                                                                    <h3 style={{ fontWeight: 'bolder', textAlign: "center" }} className='mt-3 mb-5'>สถานะการสอบ</h3>
+
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนภาคความรู้:</h5>
+                                                                                        <span className='fs-6'>{val.kn_score}</span>
+                                                                                    </div>
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนภาคความสามารถ:</h5>
+                                                                                        <span className='fs-6'>{val.profi_score}</span>
+                                                                                    </div>
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>คะแนนรวม:</h5>
+                                                                                        <span className='fs-6'>{val.sum_score}</span>
+                                                                                    </div>
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>ผลการทดสอบ:</h5>
+                                                                                        <span className='fs-6'>
+                                                                                            {val.pass_fail == ''
+                                                                                                ? <h4 style={{ color: 'red', textDecoration: 'underline' }} >ไม่ผ่าน</h4>
+                                                                                                : <h4 style={{ color: 'green', textDecoration: 'underline' }} >ผ่าน</h4>
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+
+
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกณฑ์การทดสอบกรมพัฒนาฝีมือแรงงาน 70%:</h5>
+                                                                                        <span className='fs-6'>
+                                                                                            {val.sum_score < 70
+                                                                                                ? <div>
+                                                                                                    <h4><span style={{ color: 'red', textDecoration: 'underline' }} >ไม่ผ่าน</span> (ไม่สามารถออกเกียรติบัตรได้)</h4>
+
+                                                                                                </div>
+                                                                                                : <h4 style={{ color: 'green', textDecoration: 'underline' }} >ผ่าน</h4>
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+
+
+
+                                                                                    <div className="mb-3" style={{ display: 'flex' }}>
+                                                                                        <h5 style={{ fontWeight: 'bold', marginRight: "10px" }}>เกียรติบัตร:</h5>
+                                                                                        <span className='fs-6'>
+                                                                                            {val.book_id == ''
+                                                                                                ? <div>
+                                                                                                    <button className='btn btn-info px-3' disabled>
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                                                                                                            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                                                                            <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z" />
+                                                                                                        </svg>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                                :
+                                                                                                <>
+                                                                                                    <button
+                                                                                                        type="button"
+                                                                                                        className="btn btn-primary"
+                                                                                                        // data-bs-toggle="modal"
+                                                                                                        // data-bs-target="#exampleModal"
+                                                                                                        onClick={() => handle_Export(val.reg_id)}
+                                                                                                    >
+                                                                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                                                                                            <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                                                                                            <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                                                                                        </svg>
+                                                                                                    </button>
+                                                                                                    {/* Modal */}
+                                                                                                    <div
+                                                                                                        className="modal fade"
+                                                                                                        id="exampleModal"
+                                                                                                        tabIndex={-1}
+                                                                                                        aria-labelledby="exampleModalLabel"
+                                                                                                        aria-hidden="true"
+                                                                                                    >
+                                                                                                        <div className="modal-dialog">
+                                                                                                            <div className="modal-content">
+                                                                                                                <div className="modal-header">
+                                                                                                                    <h1 className="modal-title fs-5" id="exampleModalLabel">
+
+                                                                                                                    </h1>
+                                                                                                                    <button
+                                                                                                                        type="button"
+                                                                                                                        className="btn-close"
+                                                                                                                        data-bs-dismiss="modal"
+                                                                                                                        aria-label="Close"
+                                                                                                                    />
+                                                                                                                </div>
+                                                                                                                <div className="modal-body">
+                                                                                                                    <h5>ต้องการออกรายงานเกียรติบัตรใช่หรือไม่</h5>
+                                                                                                                </div>
+                                                                                                                <div className="modal-footer">
+                                                                                                                    <button
+                                                                                                                        type="button"
+                                                                                                                        className="btn btn-secondary"
+                                                                                                                        data-bs-dismiss="modal"
+                                                                                                                    >
+                                                                                                                        ยกเลิก
+                                                                                                                    </button>
+                                                                                                                    <button type="button" onClick={get_single_reg} className="btn btn-primary" data-bs-dismiss="modal">
+                                                                                                                        ยืนยัน
+                                                                                                                    </button>
+                                                                                                                </div>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
-                                                                                                </div>
-                                                                                            </div>
-                                                                                        </>
-                                                                                    }
-                                                                                </span>
-                                                                            </div>
+                                                                                                </>
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </>
+                                                                            }
+
                                                                         </>
-                                                                    }
-
-                                                                </>
 
 
 
+                                                                    )
+                                                                })}
+
+
+                                                            </div>
+                                                        </>
+                                                        : //if it occurred Let's show the component below
+                                                        <>
+
+                                                        </>
+                                                    }
+                                                </>
+                                                : <div className="auth-form-light text-left py-5 px-4 px-sm-5 mt-4 card card-body">
+                                                    <div className="brand-logo"></div>
+                                                    <h4 style={{ fontWeight: 'bolder' }}>ตรวจสอบสถานะการสมัคร</h4>
+                                                    <form className="pt-3 mt-3" >
+                                                        <div className="form-group">
+                                                            <div>
+                                                                <h4>เลขประจำตัวการสอบ</h4>
+                                                                <input type="text" className="form-control form-control-lg" id="exampleInputEmail1" placeholder="เลขประจำตัวการสอบ"
+                                                                    onChange={(e) => setReg_id(e.target.value.toUpperCase())} />
+                                                            </div>
+                                                            <div className='mt-3'>
+                                                                <h4>เลขบัตรประจำตัวประชาชน</h4>
+                                                                <input type="password" className=" form-control form-control-lg" id="exampleInputEmail1" placeholder="เลขบัตรประจำตัวประชาชน"
+                                                                    onChange={(e) => setId_card(e.target.value)} />
+
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        {/* recaptcha */}
+                                                        <div class="mb-5 mt-5" style={{ display: 'flex', justifyContent: "center" }}>
+                                                            < ReCAPTCHA
+                                                                sitekey={SITE_KEY_2}
+                                                                onChange={onChange}
+                                                            />
+                                                        </div>
+                                                        {captchaDone
+                                                            ? (<>
+                                                                {/* Submitform */}
+                                                                <button onClick={submit_login} type="button" className="btn btn-warning py-3" >
+                                                                    ตรวจสอบสถานะ
+                                                                </button>
+                                                            </>
                                                             )
-                                                        })}
+                                                            : null}
+                                                    </form>
+                                                </div>
 
-
-                                                    </div>
-                                                </>
-                                                : //if it occurred Let's show the component below
-                                                <>
-
-                                                </>
                                             }
+
+                                            <hr />
+
                                             <div>
                                             </div>
                                         </div>

@@ -1,21 +1,19 @@
 import React from 'react'
-
+import logo_rus from '../assets/img/logo.rus.png'
 function Navbar() {
   return (
     <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
-      <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+      <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-between">
         <div className="me-3">
           <button className="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
             <span className="icon-menu" />
           </button>
         </div>
-        <div>
-          <a className="navbar-brand brand-logo" href="index.html">
-            {/* <img src="" alt="logo" /> */}
-          </a>
-          <a className="navbar-brand brand-logo-mini" href="index.html">
-            {/* <img src="" alt="logo" /> */}
-          </a>
+        <div >
+          
+            <img src={logo_rus} alt="logo" className='img-fluid mx-5' width={70} height={70}  />
+          
+          
         </div>
       </div>
       <div className="navbar-menu-wrapper d-flex align-items-top">
@@ -24,11 +22,15 @@ function Navbar() {
 
         {/* Searchbar */}
         <ul className="navbar-nav">
+          <li><img src={logo_rus} alt="logo" className='img-fluid' width={50} height={50} /></li>
           <li className="nav-item">
-            <form className="search-form" action="#">
+            {/* <form className="search-form" action="#">
               <i className="icon-search" />
               <input type="search" className="form-control" placeholder="Search Here" title="Search here" />
-            </form>
+            </form> */}
+            
+            <h3 style={{ color: 'black' }}>ศูนย์สอบมาตรฐานฝีมือแรงงาน</h3>
+            <h5>คณะบริหารและเทคโนโลยีสารสนเทศ มทร.สุวรรณภูมิ ศูนย์สุพรรณบุรี</h5>
           </li>
         </ul>
 

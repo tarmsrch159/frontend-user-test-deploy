@@ -66,13 +66,32 @@ function Payment_form() {
                                                     <p className="card-description text-center">
                                                         การชำระเงิน
                                                     </p>
+
                                                     {single_user.map((info) => {
                                                         return (
                                                             <>
-                                                                <h3>สถานะ: <span><a className='btn-warning' style={{ textDecoration: "none", padding: "5px", borderRadius: "5px" }}> {info.permission} </a></span></h3>
-                                                                <hr />
+
+
+                                                                {/* <hr /> */}
                                                                 <div className="auth-form-light text-left py-5 px-4 px-sm-5">
-                                                                    <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ข้อมูลผู้สมัครสอบ</h3>
+                                                                    {/* <h3 style={{ fontWeight: 'bolder', textAlign: "center" }}>ข้อมูลผู้สมัครสอบ</h3> */}
+                                                                    <div className="row">
+                                                                        <div className="col-9">
+                                                                            <h3>สถานะ: <span><a className='btn-warning' style={{ textDecoration: "none", padding: "5px", borderRadius: "5px" }}> {info.permission} </a></span></h3>
+
+                                                                        </div>
+                                                                        <div className="col-3">
+                                                                            {/* <img
+                                                                            src={`https://server-2-s3v5.onrender.com/images/${info.profile_img}`}
+                                                                            className="img-thumbnail"
+                                                                            alt=""
+                                                                            width={70}
+                                                                            height={70}
+                                                                        /> */}
+                                                                        </div>
+
+                                                                    </div>
+
 
                                                                     <div className="row">
                                                                         <div className="col-4">
@@ -80,15 +99,7 @@ function Payment_form() {
                                                                         </div>
                                                                         <div className="col-8 my-3" style={{ display: 'flex', justifyContent: 'end' }}>
                                                                             <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                                                                <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
-
-                                                                                <img
-                                                                                    src={`https://server-2-s3v5.onrender.com/images/${info.profile_img}`}
-                                                                                    className="img-thumbnail"
-                                                                                    alt=""
-                                                                                    width={100}
-                                                                                    height={100}
-                                                                                />
+                                                                                {/* <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5> */}
                                                                             </div>
                                                                         </div>
                                                                     </div>

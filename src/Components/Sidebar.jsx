@@ -29,12 +29,12 @@ function Sidebar() {
 
 
 
-                <li className="nav-item" onClick={reload_page}>
+                {/* <li className="nav-item" onClick={reload_page}>
                     <Link to='/register' className="nav-link">            
                             <i className="menu-icon mdi mdi-floor-plan" />
                             <span className="menu-title">ลงทะเบียนสมาชิก</span>
                     </Link>
-                </li>
+                </li> */}
                 
             </ul>
         </nav>

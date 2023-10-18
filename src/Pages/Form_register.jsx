@@ -219,6 +219,30 @@ function Form_register() {
     window.location = '/login_user'
   }
 
+  const  handleName_en = (e) => {
+    const result_1 = e.target.value.replace(/[^a-z]/gi, '')
+    
+    setName_EN(result_1)
+  }
+
+  const  handleLastname_en = (e) => {
+    const result_2 = e.target.value.replace(/[^a-z]/gi, '')
+    
+    setLastname_EN(result_2)
+  }
+
+  const handleId_card = (e) => {
+    const result_3 = e.target.value.replace(/\D/g, '');
+
+    setId_card(result_3)
+  }
+
+  const handleTel = (e) => {
+    const result_4 = e.target.value.replace(/\D/g, '');
+
+    setTel(result_4)
+  }
+
   return (
     <div className="main-panel">
       <div className="content-wrapper">
@@ -386,8 +410,8 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>ชื่อ ภาษาอังกฤษ(EN)<span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" required className="form-control" id="exampleInputUsername2" placeholder="ชื่อ"
-                          onChange={(e) => setName_EN(e.target.value)} />
+                        <input type="text" required value={name_EN} className="form-control" id="exampleInputUsername2" placeholder="ชื่อ"
+                          onChange={handleName_en} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาใส่ชื่อ *</p>
                           : null}
@@ -399,9 +423,9 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>นามสกุล ภาษาอังกฤษ(EN)<span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" required className="form-control" id="validationCustomUsername" placeholder="นามสกุล"
+                        <input type="text" value={lastname_EN} required className="form-control" id="validationCustomUsername" placeholder="นามสกุล"
 
-                          onChange={(e) => setLastname_EN(e.target.value)} />
+                          onChange={handleLastname_en} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาใส่นามสกุล *</p>
                           : null}
@@ -433,8 +457,8 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>เลขบัตรประจำตัวประชาชน <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" className="form-control" id="exampleInputUsername2" placeholder="เลขบัตรประจำตัวประชาชน"
-                          onChange={(e) => setId_card(e.target.value)} />
+                        <input type="text" value={id_card} className="form-control" id="exampleInputUsername2" placeholder="เลขบัตรประจำตัวประชาชน"
+                          onChange={handleId_card} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาป้อนเลขบัตรประจำตัวประชาชน *</p>
                           : null}
@@ -477,8 +501,8 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>โทรศัพท์ <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" className="form-control" id="exampleInputUsername2" placeholder="โทรศัพท์"
-                          onChange={(e) => setTel(e.target.value)} />
+                        <input type="text" value={tel} className="form-control" id="exampleInputUsername2" placeholder="โทรศัพท์"
+                          onChange={handleTel} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาใส่เบอร์โทรศัพท์ *</p>
                           : null}
