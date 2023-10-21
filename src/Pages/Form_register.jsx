@@ -457,7 +457,7 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>เลขบัตรประจำตัวประชาชน <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" value={id_card} className="form-control" id="exampleInputUsername2" placeholder="เลขบัตรประจำตัวประชาชน"
+                        <input maxLength={13} type="text" value={id_card} className="form-control" id="exampleInputUsername2" placeholder="เลขบัตรประจำตัวประชาชน"
                           onChange={handleId_card} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาป้อนเลขบัตรประจำตัวประชาชน *</p>
@@ -501,7 +501,7 @@ function Form_register() {
                     <div className="form-group row">
                       <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>โทรศัพท์ <span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9">
-                        <input type="text" value={tel} className="form-control" id="exampleInputUsername2" placeholder="โทรศัพท์"
+                        <input maxLength={10} type="text" value={tel} className="form-control" id="exampleInputUsername2" placeholder="โทรศัพท์"
                           onChange={handleTel} />
                         {debug_data
                           ? <p className="text-danger mt-2">กรุณาใส่เบอร์โทรศัพท์ *</p>
