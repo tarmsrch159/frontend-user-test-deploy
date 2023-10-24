@@ -920,7 +920,7 @@ function Login_user() {
                                                         {/* recaptcha */}
                                                         <div class="mb-5 mt-5" style={{ display: 'flex', justifyContent: "center" }}>
                                                             < ReCAPTCHA
-                                                                sitekey={SITE_KEY_2}
+                                                                sitekey={SITE_KEY}
                                                                 onChange={onChange}
                                                             />
                                                         </div>
