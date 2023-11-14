@@ -8,10 +8,18 @@ function Sidebar() {
     const reload_page = () => {
         location.reload()
     }
+
+    // const [isActive, setIsActive] = useState(false);
+
+    // const handleClick = () => {
+    //     // Toggle the isActive state when the element is clicked
+    //     setIsActive(!isActive);
+    // };
     return (
-        <nav className="sidebar sidebar-offcanvas" id="sidebar">
+        // sidebar sidebar-offcanvas active
+        <nav className='sidebar sidebar-offcanvas active' id="sidebar">
             <ul className="nav">
-            <li className="nav-item" onClick={reload_page}>
+                <li className="nav-item" onClick={reload_page}>
                     <Link to='/' className="nav-link">
                         <i className="menu-icon mdi mdi-floor-plan" />
                         <span className="menu-title">หน้าเลือกหลักสูตร</span>
@@ -35,7 +43,7 @@ function Sidebar() {
                             <span className="menu-title">ลงทะเบียนสมาชิก</span>
                     </Link>
                 </li> */}
-                
+
             </ul>
         </nav>
     )

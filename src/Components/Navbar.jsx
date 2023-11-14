@@ -1,6 +1,8 @@
 import React from 'react'
 import logo_rus from '../assets/img/logo.rus.png'
 function Navbar() {
+
+
   return (
     <nav className="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
       <div className="text-center navbar-brand-wrapper d-flex align-items-center justify-content-between">
