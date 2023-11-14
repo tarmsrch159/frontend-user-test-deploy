@@ -593,7 +593,6 @@ function Login_user() {
                 setUser_data(res.data.result)
                 setUpload_id(res.data.result[0].reg_id)
                 setShow_modal(true)
-                alert('ข้อมูลประจำตัว')
             }
         })
 
@@ -731,9 +730,7 @@ function Login_user() {
                                                                                     <span className='fs-6'>
                                                                                         {val.receipt != ''
                                                                                             ? 'กำลังรอตรวจสอบใบเสร็จ'
-                                                                                            : <>
-                                                                                                {val.permission}
-                                                                                            </>
+                                                                                            : 'ผู้สมัคร (รอดำเนินการ)'
                                                                                         }</span>
                                                                                 </div>
 

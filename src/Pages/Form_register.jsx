@@ -42,6 +42,7 @@ function Form_register() {
   const [course, setCourse] = useState(course_name)
   const [candidate, setCandidate] = useState("")
   const [prefix, setPrefix] = useState("")
+  const [prefixEN, setPrefixEN] = useState("")
   const [nationality, setNationality] = useState("")
   const [birthday, setBirthday] = useState("");
   const [reg_day, setReg_day] = useState("")
@@ -125,6 +126,7 @@ function Form_register() {
     formdata.append("course", course)
     formdata.append("candidate", candidate)
     formdata.append("prefix", prefix)
+    formdata.append("prefixEN", prefixEN)
     formdata.append("nationality", nationality)
     formdata.append("birthday", birthday)
     formdata.append("tel", tel)
@@ -219,15 +221,15 @@ function Form_register() {
     window.location = '/login_user'
   }
 
-  const  handleName_en = (e) => {
+  const handleName_en = (e) => {
     const result_1 = e.target.value.replace(/[^a-z]/gi, '')
-    
+
     setName_EN(result_1)
   }
 
-  const  handleLastname_en = (e) => {
+  const handleLastname_en = (e) => {
     const result_2 = e.target.value.replace(/[^a-z]/gi, '')
-    
+
     setLastname_EN(result_2)
   }
 
@@ -242,6 +244,12 @@ function Form_register() {
 
     setTel(result_4)
   }
+
+  const direct_login = () => {
+    window.location = '/login_user'
+  }
+
+  console.log(prefixEN)
 
   return (
     <div className="main-panel">
@@ -289,17 +297,23 @@ function Form_register() {
 
 
                   <div className="form-group row">
-                    <div className="col-sm-9">
-
+                    <div className="col-8 col-sm-8">
+                      <button className='btn btn-info py-3 px-4' onClick={direct_login} >ตรวจสอบสถานะ</button>
+                      <div className="row">
+                        <div className="col-9">
+                          <button className='btn btn-info py-3 px-4' onClick={getImage}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                              <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                              <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                            </svg>                          </button>
+                          <p><span style={{ color: 'red' }}>* </span>ปริ้นใบสมัครสอบ</p>
+                        </div>
+                      </div>
                     </div>
+
+
                     <div className="col-4 col-sm-4 d-flex align-items-center">
-                      <p><span style={{ color: 'red' }}>* </span>ปริ้นใบสมัครสอบ</p>
-                      <button className='btn btn-info py-3 px-4 mx-4' onClick={getImage}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-                          <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
-                          <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                        </svg>
-                      </button>
+
                     </div>
 
                   </div>
@@ -404,6 +418,22 @@ function Form_register() {
                           : null}
                       </div>
 
+                    </div>
+                    
+                    <div className="form-group row">
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>คำนำหน้าชื่อ ภาษาอังกฤษ(EN) <span style={{ color: "red" }}>*</span></label>
+                      <div className="col-sm-9">
+                        <select className="form-select" aria-label="Default select example" onChange={(e) => setPrefixEN(e.target.value)}>
+                          <option select>กรุณาเลือกคำนำหน้า</option>
+                          <option value="Dr.">Dr.</option>
+                          <option value="Mr.">Mr.</option>
+                          <option value="Mrs.">Mrs.</option>
+                          <option value="Ms.">Ms.</option>
+                        </select>
+                        {debug_data
+                          ? <p className="text-danger mt-2">กรุณาเลือกคำนำหน้า *</p>
+                          : null}
+                      </div>
                     </div>
 
                     {/* name and lastname TH*/}
@@ -643,7 +673,7 @@ function Form_register() {
                     {/* profile_img */}
                     {/* สาขา */}
                     <div className="form-group row">
-                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>รูปประจำตัว <span style={{ color: "red" }}>*</span></label>
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>รูปประจำตัว (ไฟล์รูป หรือ PDF)<span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
                         <input type="file" name='image' onChange={onImageChange} multiple accept='image/*' className="form-control py-2" id="customFile" />
 
@@ -655,7 +685,7 @@ function Form_register() {
 
                     {/* สาขา */}
                     <div className="form-group row">
-                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบสำเนาบัตรประจำตัวประชาชน <span style={{ color: "red" }}>*</span></label>
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบสำเนาบัตรประจำตัวประชาชน (ไฟล์รูป หรือ PDF)<span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
                         <input type="file" name='id_card_img' onChange={(e) => setId_card_img(e.target.files[0])} multiple accept='id_card_img/*' className="form-control py-2" id="customFile" />
 
@@ -668,7 +698,7 @@ function Form_register() {
 
                     {/* education img */}
                     <div className="form-group row">
-                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบวุฒิการศึกษา <span style={{ color: "red" }}>*</span></label>
+                      <label htmlFor="exampleInputUsername2" className="col-sm-3 col-form-label" style={{ fontWeight: "bolder" }}>แนบวุฒิการศึกษา (ไฟล์รูป หรือ PDF)<span style={{ color: "red" }}>*</span></label>
                       <div className="col-sm-9" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignContent: 'center' }}>
                         <input type="file" name='educational_img' onChange={(e) => setEducational_Img(e.target.files[0])} multiple accept='Educational_Img/*' className="form-control py-2" id="customFile" />
 
