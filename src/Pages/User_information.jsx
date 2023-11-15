@@ -7,7 +7,7 @@ function User_information() {
 
     const [data_mockup, setData_mockup] = useState([])
     useEffect(() =>{
-        axios.get(`http://localhost:3000/user_information/${id}`).then(res => {
+        axios.get(`https://server-2-s3v5.onrender.com/user_information/${id}`).then(res => {
         setData_mockup(res.data)
         
         })
