@@ -64,7 +64,7 @@ function Login_user() {
     const upload_img = () => {
         const formdata = new FormData()
         formdata.append("image", img)
-        axios.put(`https://server-2-s3v5.onrender.com/payment/${upload_id}`, formdata)
+        axios.put(`http://localhost:3000/payment/${upload_id}`, formdata)
             .then((res) => {
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
@@ -85,7 +85,7 @@ function Login_user() {
     const year_en = today.getFullYear()
     const Export_certificate = async (reg_id) => {
 
-        await axios.get('https://server-2-s3v5.onrender.com/get_single_certi/' + reg_id).then((res) => {
+        await axios.get('http://localhost:3000/get_single_certi/' + reg_id).then((res) => {
             setSingle_certi(res.data[0])
         })
     }
@@ -93,11 +93,11 @@ function Login_user() {
     const get_single_reg = async () => {
 
 
-        // await doc.addImage(`https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
-        // await doc.addImage(`https://server-2-s3v5.onrender.com/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
+        // await doc.addImage(`http://localhost:3000/images/${single_certi.profile_img}`, 'JPEG', 41, 232, 25, 30)
+        // await doc.addImage(`http://localhost:3000/${single_certi.profile_img}`, 'PNG', 41, 232, 25, 30)
 
         const img = new Image()
-        img.src = await `https://server-2-s3v5.onrender.com/images/${single_certi.profile_img}`
+        img.src = await `http://localhost:3000/images/${single_certi.profile_img}`
         img.onload = () => {
 
             const doc = new jsPDF()
@@ -574,7 +574,7 @@ function Login_user() {
     //Task for a function----------------------------------------------------------------------------------------
     const submit_login = () => {
 
-        axios.post("https://server-2-s3v5.onrender.com/login_user", {
+        axios.post("http://localhost:3000/login_user", {
             reg_id: reg_id,
             id_card: id_card
         }).then((res) => {
@@ -649,7 +649,7 @@ function Login_user() {
                                                                                                 <h5 style={{ fontWeight: 'bold', marginRight: "10px", }} >รูปประจำตัว</h5>
 
                                                                                                 <img
-                                                                                                    src={`https://server-2-s3v5.onrender.com/images/${val.profile_img}`}
+                                                                                                    src={`http://localhost:3000/images/${val.profile_img}`}
                                                                                                     className="img-thumbnail"
                                                                                                     alt=""
                                                                                                     width={100}

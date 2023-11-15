@@ -24,7 +24,7 @@ function Navbar() {
 
         {/* Searchbar */}
         <ul className="navbar-nav">
-          <li><img src={logo_rus} alt="logo" className='img-fluid' width={50} height={50} /></li>
+          {/* <li><img src='' alt="logo" className='img-fluid' width={50} height={50} /></li> */}
           <li className="nav-item">
             {/* <form className="search-form" action="#">
               <i className="icon-search" />
