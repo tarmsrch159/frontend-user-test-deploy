@@ -33,7 +33,7 @@ function Main() {
                                                         <table class="table">
                                                             <thead>
                                                                 <tr>
-                                                                    <th scope="col" style={{ fontSize: "16px" }}>ลำดับ</th>
+                                                                    <th scope="col" style={{ fontSize: "16px" }}></th>
                                                                     <th scope="col" style={{ fontSize: "16px" }}>สาขา</th>
                                                                     <th scope="col" style={{ fontSize: "16px" }}>หน่วยงาน</th>
                                                                     <th scope="col" style={{ fontSize: "16px" }}></th>
@@ -41,28 +41,40 @@ function Main() {
                                                             </thead>
                                                             <tbody>
                                                                 <tr>
-                                                                    <th scope="row">1</th>
-                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ประมวลผลคำ)</td>
-                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
-                                                                    <td>
+                                                                    <th scope="row">
                                                                         <Link to={`/register/1`}>
                                                                             <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
                                                                                 สมัคร
                                                                             </button>
                                                                         </Link>
-                                                                    </td>
+                                                                    </th>
+                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ประมวลผลคำ)</td>
+                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
+                                                                    {/* <td>
+                                                                        <Link to={`/register/1`}>
+                                                                            <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
+                                                                                สมัคร
+                                                                            </button>
+                                                                        </Link>
+                                                                    </td> */}
                                                                 </tr>
                                                                 <tr>
-                                                                    <th scope="row">2</th>
-                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ตารางทำการ)</td>
-                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
-                                                                    <td>
+                                                                    <th scope="row">
                                                                         <Link to={`/register/2`}>
                                                                             <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
                                                                                 สมัคร
                                                                             </button>
                                                                         </Link>
-                                                                    </td>
+                                                                    </th>
+                                                                    <td style={{ fontSize: "16px" }}>สาขาพนักงานการใช้คอมพิวเตอร์ (ตารางทำการ)</td>
+                                                                    <td style={{ fontSize: "16px" }}>คณะบริหารธุรกิจและเทคโนโลยีสารสนเทศ มทร. ศูนย์สุพรรณบุรี</td>
+                                                                    {/* <td>
+                                                                        <Link to={`/register/2`}>
+                                                                            <button type="button" class="btn btn-info px-4 py-3" data-ripple-color="dark">
+                                                                                สมัคร
+                                                                            </button>
+                                                                        </Link>
+                                                                    </td> */}
                                                                 </tr>
                                                                 <tr>
 
@@ -89,7 +101,7 @@ function Main() {
             {/* partial:partials/_footer.html */}
             <footer className="footer">
                 <div className="d-sm-flex justify-content-center justify-content-sm-between">
-                    
+
                 </div>
             </footer>
             {/* partial */}

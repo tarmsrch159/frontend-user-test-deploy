@@ -136,7 +136,7 @@ function Form_register_old() {
     formdata.append("kn_score", 0)
     formdata.append("profi_score", 0)
     formdata.append("sum_score", 0)
-    axios.post("https://server-2-s3v5.onrender.com/add_member", formdata).then((res) => {
+    axios.post("https://cloud-server-2.vercel.app/add_member", formdata).then((res) => {
 
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
@@ -160,7 +160,7 @@ function Form_register_old() {
 
   useEffect(() => {
     const get_provinces = async () => {
-      const resprovinces = await fetch("https://server-2-s3v5.onrender.com/get_provinces")
+      const resprovinces = await fetch("https://cloud-server-2.vercel.app/get_provinces")
       const respro = await resprovinces.json();
       setShow_provinces(await respro)
     }
@@ -168,7 +168,7 @@ function Form_register_old() {
   }, [])
   useEffect(() => {
     const get_amphures = async () => {
-      const resAmphures = await fetch(`https://server-2-s3v5.onrender.com/get_amphures/${province_id}`)
+      const resAmphures = await fetch(`https://cloud-server-2.vercel.app/get_amphures/${province_id}`)
       const resAmp = await resAmphures.json();
       setShow_amphures(await resAmp)
     }
@@ -178,7 +178,7 @@ function Form_register_old() {
 
   useEffect(() => {
     const get_district = async () => {
-      const resDistrict = await fetch(`https://server-2-s3v5.onrender.com/get_districts/${amphure_id}`)
+      const resDistrict = await fetch(`https://cloud-server-2.vercel.app/get_districts/${amphure_id}`)
       const resDis = await resDistrict.json();
       setShow_district(await resDis)
     }
