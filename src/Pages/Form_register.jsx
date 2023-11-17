@@ -208,13 +208,15 @@ function Form_register() {
     tel, address, educational, branch, email, images, line_id, id_card_img, educational_Img])
 
   useEffect(() => {
-    const course_effect = async () => {
-      const get_corse = await fetch(`https://cloud-server-2.vercel.app/course_name`)
-      const res_course = await get_corse.json();
-      setCourse_api(await res_course)
-    }
+    // const course_effect = async () => {
+    //   const get_corse = await fetch(`https://cloud-server-2.vercel.app/course_name`)
+    //   const res_course = await get_corse.json();
+    //   setCourse_api(await res_course)
+    // }
 
-    course_effect()
+    axios.get(`https://cloud-server-2.vercel.app/course_name`).then((res) => {
+      setCourse_api(res.data)
+    })
   }, [])
 
   const location = () => {

@@ -209,7 +209,6 @@ function Form_register_old() {
     window.location = '/login_user'
   }
 
-  console.log('Style model' + style_modal)
 
   return (
     <div className="main-panel">
