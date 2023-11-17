@@ -251,7 +251,8 @@ function Form_register() {
     window.location = '/login_user'
   }
 
-  console.log(prefixEN)
+  console.log(course_api)
+  console.log(course_name)
 
   return (
     <div className="main-panel">
