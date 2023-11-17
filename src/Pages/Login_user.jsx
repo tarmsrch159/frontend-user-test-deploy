@@ -22,7 +22,6 @@ function Login_user() {
     const SITE_KEY_2 = '6LebtgYmAAAAADOb1pK-GGCL1PpR_bV-j9x5zqFJ'
     const [captchaDone, setCaptchaDone] = useState(null)
     const onChange = () => {
-        console.log('Changed')
         setCaptchaDone(true)
     }
 
@@ -606,7 +605,6 @@ function Login_user() {
         window.location = `/payment/${reg_id}`
     }
 
-    console.log(user_data)
 
     return (
         <div className="main-panel">

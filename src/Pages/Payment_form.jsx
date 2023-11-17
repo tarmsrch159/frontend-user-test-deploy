@@ -18,12 +18,12 @@ function Payment_form() {
             const formdata = new FormData
             formdata.append("image", img)
             axios.put(`https://cloud-server-2.vercel.app/payment/${id}`, formdata).then((res) => {
-                console.log(res)
+                
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
                     window.location = '/login_user'
                 } else {
-                    console.log(res)
+                    
                     return false
                 }
             })
@@ -38,7 +38,6 @@ function Payment_form() {
         })
     }, [])
 
-    console.log(single_user)
     return (
         <div className="main-panel">
             <div className="content-wrapper">

@@ -12,7 +12,6 @@ function User_information() {
         
         })
     },[])
-    console.log(data_mockup)
     return (
         <div>asd</div>
     )
