@@ -139,7 +139,7 @@ function Form_register() {
     formdata.append("kn_score", 0)
     formdata.append("profi_score", 0)
     formdata.append("sum_score", 0)
-    axios.post("https://cloud-server-2.vercel.app/add_member", formdata).then((res) => {
+    axios.post("https://cloud-server-2-again.vercel.app/add_member", formdata).then((res) => {
 
       if (res.data.STATUS == 'ลงทะเบียนเสร็จสิ้น') {
         setError(false)
@@ -163,7 +163,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_provinces = async () => {
-      const resprovinces = await fetch("https://cloud-server-2.vercel.app/get_provinces")
+      const resprovinces = await fetch("https://cloud-server-2-again.vercel.app/get_provinces")
       const respro = await resprovinces.json();
       setShow_provinces(await respro)
     }
@@ -172,7 +172,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_amphures = async () => {
-      const resAmphures = await fetch(`https://cloud-server-2.vercel.app/get_amphures/${province_id}`)
+      const resAmphures = await fetch(`https://cloud-server-2-again.vercel.app/get_amphures/${province_id}`)
       const resAmp = await resAmphures.json();
       setShow_amphures(await resAmp)
     }
@@ -182,7 +182,7 @@ function Form_register() {
 
   useEffect(() => {
     const get_district = async () => {
-      const resDistrict = await fetch(`https://cloud-server-2.vercel.app/get_districts/${amphure_id}`)
+      const resDistrict = await fetch(`https://cloud-server-2-again.vercel.app/get_districts/${amphure_id}`)
       const resDis = await resDistrict.json();
       setShow_district(await resDis)
     }
@@ -209,7 +209,7 @@ function Form_register() {
 
   useEffect(() => {
     // const course_effect = async () => {
-    //   const get_corse = await fetch(`https://cloud-server-2.vercel.app/course_name`)
+    //   const get_corse = await fetch(`https://cloud-server-2-again.vercel.app/course_name`)
     //   const res_course = await get_corse.json();
     //   setCourse_api(await res_course)
     // }

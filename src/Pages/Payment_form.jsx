@@ -17,7 +17,7 @@ function Payment_form() {
         if (confirm("คุณต้องการบันทึกข้อมูลหรือไม่")) {
             const formdata = new FormData
             formdata.append("image", img)
-            axios.put(`https://cloud-server-2.vercel.app/payment/${id}`, formdata).then((res) => {
+            axios.put(`https://cloud-server-2-again.vercel.app/payment/${id}`, formdata).then((res) => {
                 
                 if (res.data.status == 'true') {
                     alert("บันทึกข้อมูลเสร็จสิ้น")
@@ -33,7 +33,7 @@ function Payment_form() {
     }
 
     useEffect(() => {
-        axios.get(`https://cloud-server-2.vercel.app/check_payment/${id}`).then((res) => {
+        axios.get(`https://cloud-server-2-again.vercel.app/check_payment/${id}`).then((res) => {
             setSingle_user(res.data)
         })
     }, [])
@@ -81,7 +81,7 @@ function Payment_form() {
                                                                         </div>
                                                                         <div className="col-3">
                                                                             {/* <img
-                                                                            src={`https://cloud-server-2.vercel.app/images/${info.profile_img}`}
+                                                                            src={`https://cloud-server-2-again.vercel.app/images/${info.profile_img}`}
                                                                             className="img-thumbnail"
                                                                             alt=""
                                                                             width={70}

@@ -7,7 +7,7 @@ function User_information() {
 
     const [data_mockup, setData_mockup] = useState([])
     useEffect(() =>{
-        axios.get(`https://cloud-server-2.vercel.app/user_information/${id}`).then(res => {
+        axios.get(`https://cloud-server-2-again.vercel.app/user_information/${id}`).then(res => {
         setData_mockup(res.data)
         
         })
